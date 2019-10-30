@@ -1,10 +1,12 @@
 package MapComponents;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.awt.*;
 
 public abstract class Component {
-    int xPosMapComp, yPosMapComp, w, h, screenWidth, screenHeight;
-    Boolean solid;
+    public int xPosMapComp, yPosMapComp, w, h, screenWidth, screenHeight;
+    public Boolean solid;
     Color c;
 
     public Component(int x, int y, int width, int height, Color color, Boolean solid){
@@ -18,10 +20,11 @@ public abstract class Component {
 
     public abstract void draw(Graphics g);
 
-    public abstract boolean collision();
 
     public abstract void updateWidth(int w);
 
     public abstract void updateHeight(int h);
+
+    public abstract boolean colliding(int x, int y);
 
 }

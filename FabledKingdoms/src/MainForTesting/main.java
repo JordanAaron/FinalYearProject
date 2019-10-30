@@ -1,14 +1,12 @@
 package MainForTesting;
 
-import InputHandling.InputHandler;
-import Maps.Frame;
-import Maps.TestingMap;
+import Maps.*;
 
 
 public class main {
 
     public static void main(String[] args){
-        Frame frame = new Frame();
+        MapFrame frame = new MapFrame();
         TestingMap testingMap = new TestingMap(frame);
         frame.add(testingMap);
         frame.pack();

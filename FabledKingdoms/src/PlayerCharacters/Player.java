@@ -18,5 +18,7 @@ public abstract class Player {
 
     public abstract void movement();
 
+    public abstract  void collision();
+
 
 }
