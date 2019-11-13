@@ -18,6 +18,7 @@ public class TestingMap extends JPanel {
 
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.green,true);
     public static Platform leftPlatform = new Platform(20,60,15,5,Color.white,true);
+    public static Platform rightPlatform = new Platform(80 - 15,60,15,5,Color.white,true);
 
     //initialising lists for the components to be added to the map
     ArrayList<MapComponents.Component> components = new ArrayList<>();
@@ -32,7 +33,7 @@ public class TestingMap extends JPanel {
         //Map component positions
         this.components.add(floor);//floor
         this.components.add(leftPlatform);//left platform
-        this.components.add(new Platform(80 - 15,60,15,5,Color.white,true));//right platform
+        this.components.add(rightPlatform);//right platform
 
         //Player positions
         this.players.add(p1);
@@ -60,14 +61,14 @@ public class TestingMap extends JPanel {
 
     }
 
-    public static boolean colliding(int x, int y, TestingMap m) {
-        for(Component c: m.components) {
-            if (c.colliding(x,y)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean colliding(int x, int y, TestingMap m) {
+//        for(Component c: m.components) {
+//            if (c.colliding(x,y)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     @Override
     public void paint(Graphics g) {

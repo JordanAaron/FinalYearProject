@@ -124,8 +124,13 @@ public class GenericPlayer extends Player {
 
     }
 
+//    private double initiateGravity(){
+//        return ySpeed -= 1;
+//    }
+
     private double initiateGravity(){
-        return ySpeed -= 1;
+        ySpeed -= 1;
+        return ySpeed;
     }
 
     public void collision(){
@@ -139,22 +144,32 @@ public class GenericPlayer extends Player {
             initiateGravity();
         }
 
-//        if(yPosPlayer <= (TestingMap.leftPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.leftPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.leftPlatform.xPosMapComp + TestingMap.leftPlatform.w)){
-//            System.out.println("in position");
-//            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
-//                System.out.println("collide");
-//                //yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
-//                canJump = true;
-//                jumpCounter = 0;
-//                ySpeed = 0;
-//            }
-//        }
-
-        if (TestingMap.colliding(this.xPosPlayer,this.yPosPlayer,this.map) && ySpeed > 0) {
-            ySpeed = 0;
-            canJump = true;
-            jumpCounter = 0;
+        //System.out.println(ySpeed);
+        if(yPosPlayer <= (TestingMap.leftPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.leftPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.leftPlatform.xPosMapComp + TestingMap.leftPlatform.w) && ySpeed <= 0){
+            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
+                canJump = true;
+                jumpCounter = 0;
+                ySpeed = 0;
+                //yPosPlayer = TestingMap.leftPlatform.yPosMapComp -playerHeight;
+            }
         }
+
+        if(yPosPlayer <= (TestingMap.rightPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.rightPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.rightPlatform.xPosMapComp + TestingMap.rightPlatform.w) && ySpeed <=0){
+            System.out.println("in position");
+            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
+                //System.out.println("collide");
+                //yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
+                canJump = true;
+                jumpCounter = 0;
+                ySpeed = 0;
+            }
+        }
+
+//        if (TestingMap.colliding(this.xPosPlayer,this.yPosPlayer,this.map) && ySpeed > 0) {
+//            ySpeed = 0;
+//            canJump = true;
+//            jumpCounter = 0;
+//        }
 
     }
 
