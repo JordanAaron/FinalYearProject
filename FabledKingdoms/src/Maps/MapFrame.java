@@ -8,18 +8,12 @@ import java.awt.*;
 public class MapFrame extends JFrame implements Runnable  {
     private Thread thread;
     private boolean running;
-
     private static int fps;
-
-
 
     public MapFrame(){
         setPreferredSize(new Dimension(800,600));
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-
-
         setFocusable(true);
         addKeyListener(new InputHandler());
 

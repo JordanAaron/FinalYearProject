@@ -15,19 +15,15 @@ public class InputHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
-            //System.out.println("Up arrow pressed");
             TestingMap.p1.upArrow();
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            System.out.println("Down arrow pressed");
         }
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            System.out.println("Left arrow pressed");
             TestingMap.p1.leftArrow();
             TestingMap.p1.startMoving();
         }
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            System.out.println("Right arrow pressed");
             TestingMap.p1.rightArrow();
             TestingMap.p1.startMoving();
         }
@@ -45,7 +41,6 @@ public class InputHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT){
-            //System.out.println("Left arrow pressed");
             TestingMap.p1.stopMoving();
         }
     }

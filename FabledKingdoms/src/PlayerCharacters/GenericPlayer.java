@@ -13,10 +13,7 @@ public class GenericPlayer extends Player {
     private int xPos;
     private int yPos;
 
-    private TestingMap map;
-
     private int jumpCounter;
-
 
     Color color;
 
@@ -54,38 +51,20 @@ public class GenericPlayer extends Player {
     public void updateHeight(int h){this.getScreenHeight = h;}
 
     public void upArrow(){
-
         if(jumpCounter < 2){
+            ySpeed = 9;
             jumpCounter++;
-            //System.out.println(jumpCounter);
-            ySpeed = 9;//jump speed-+
             canJump = false;
         }
+        System.out.println(jumpCounter);
     }
 
     public void leftArrow(){
-
-//        if (xSpeed > -2){
-//            xSpeed = xSpeed - 0.1;
-//            System.out.println(xSpeed);
-//        } else {
-//            xSpeed = -2;
-//        }
         xSpeed = -2;
-
     }
+
     public void rightArrow(){
-        System.out.println("called");
-//        if (xSpeed < 2){
-//            xSpeed = xSpeed + 0.1;
-//            System.out.println(xSpeed);
-//        }else {
-//            xSpeed = 2;
-//        }
-
         xSpeed = 2;
-
-
     }
 
     public void startMoving(){
@@ -93,18 +72,17 @@ public class GenericPlayer extends Player {
     }
 
     public void stopMoving(){
-        System.out.println("stopping");
         canMove = false;
     }
-
-
 
     @Override
     public void movement() {
         xPosPlayer += xSpeed;
         yPosPlayer -= ySpeed;
         collision();
+        outOfBounds();
 
+        //System.out.println(ySpeed);
 
         if(!canMove){
             if (xSpeed < 0){
@@ -119,22 +97,9 @@ public class GenericPlayer extends Player {
                 }
             }
         }
-
-
-
-    }
-
-//    private double initiateGravity(){
-//        return ySpeed -= 1;
-//    }
-
-    private double initiateGravity(){
-        ySpeed -= 1;
-        return ySpeed;
     }
 
     public void collision(){
-        //System.out.println((TestingMap.floor.yPosMapComp)); THIS WORKED
         if (yPosPlayer >= (TestingMap.floor.yPosMapComp - playerHeight)){
             yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
             canJump = true;
@@ -144,51 +109,47 @@ public class GenericPlayer extends Player {
             initiateGravity();
         }
 
-        //System.out.println(ySpeed);
-        if(yPosPlayer <= (TestingMap.leftPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.leftPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.leftPlatform.xPosMapComp + TestingMap.leftPlatform.w) && ySpeed <= 0){
-            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
-                canJump = true;
-                jumpCounter = 0;
-                ySpeed = 0;
-                //yPosPlayer = TestingMap.leftPlatform.yPosMapComp -playerHeight;
-            }
+
+        if (TestingMap.leftPlatform.colliding((int) (xPosPlayer + (0.5 * playerWidth)),yPosPlayer + playerHeight)){
+            //yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
+            canJump = true;
+            jumpCounter = 0;
+            ySpeed = 0;
+            System.out.println("collide");
         }
 
-        if(yPosPlayer <= (TestingMap.rightPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.rightPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.rightPlatform.xPosMapComp + TestingMap.rightPlatform.w) && ySpeed <=0){
-            System.out.println("in position");
-            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
-                //System.out.println("collide");
-                //yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
-                canJump = true;
-                jumpCounter = 0;
-                ySpeed = 0;
-            }
-        }
-
-//        if (TestingMap.colliding(this.xPosPlayer,this.yPosPlayer,this.map) && ySpeed > 0) {
-//            ySpeed = 0;
-//            canJump = true;
-//            jumpCounter = 0;
+//        if(/*yPosPlayer <= (TestingMap.leftPlatform.yPosMapComp - playerHeight) &&*/ xPosPlayer >= (TestingMap.leftPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.leftPlatform.xPosMapComp + TestingMap.leftPlatform.w) && ySpeed <= 0){
+//            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)) {
+//                yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
+//                canJump = true;
+//                jumpCounter = 0;
+//                ySpeed = 0;
+//            }
+//        }
+//
+//        if(yPosPlayer <= (TestingMap.rightPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.rightPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.rightPlatform.xPosMapComp + TestingMap.rightPlatform.w) && ySpeed <=0){
+//            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
+//                canJump = true;
+//                jumpCounter = 0;
+//                ySpeed = 0;
+//            }
 //        }
 
+
+    }
+
+    private double initiateGravity(){
+        ySpeed -= 1;
+        return ySpeed;
     }
 
     private void outOfBounds(){
-        if(yPosPlayer < 0){
-            yPosPlayer = 0;
+        if(xPosPlayer < 0){
+            xPosPlayer = 0;
         }
-        if (yPosPlayer > this.getScreenHeight){
-            yPosPlayer = this.getScreenHeight - playerHeight;
+        if ((xPosPlayer + playerWidth) > 100){
+            xPosPlayer = 100 - playerWidth;
         }
 
     }
-
-
-
-
-
-
-
-
-
 }

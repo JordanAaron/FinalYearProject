@@ -3,9 +3,8 @@ package MapComponents;
 import java.awt.*;
 
 public class Platform extends Component {
-    public Platform(int x, int y, int width, int height, Color color, Boolean solid){
-        super(x,y,width,height,color,solid);
-
+    public Platform(int x, int y, int width, int height, Color color){
+        super(x,y,width,height,color);
     }
 
     @Override
@@ -17,15 +16,8 @@ public class Platform extends Component {
         int width = (int)(((double) this.w/100) * this.screenWidth);
         int height = (int)(((double) this.h/100) * this.screenHeight);
 
-
-        //System.out.println("screen width: " + this.screenWidth + "screen height: " + this.screenHeight);
-        //System.out.println(xPos + ", " + yPos);
-
         g.fillRect(xPos, yPos,width, height);
-
     }
-
-
 
     @Override
     public void updateWidth(int w) {
@@ -38,11 +30,15 @@ public class Platform extends Component {
     }
 
     @Override
-    public boolean colliding(int x, int y) {
+    public boolean colliding(int xPlayer, int yPlayer) {
         int xPos = (int)(((double) this.xPosMapComp /100) * this.screenWidth);
         int yPos = (int)(((double) this.yPosMapComp /100) * this.screenHeight);
         int width = (int)(((double) this.w/100) * this.screenWidth);
-        return x>xPos && x<(xPos+width)  && y == yPos;
+        int height = (int)(((double) this.h/100) * this.screenHeight);
+
+
+
+        return xPlayer >= this.xPosMapComp && xPlayer <= this.xPosMapComp + this.w && yPlayer >= this.yPosMapComp && yPlayer <= (this.yPosMapComp + this.h);
     }
 
 
