@@ -4,7 +4,8 @@ import java.awt.*;
 
 public abstract class Player {
     int xPosPlayer, yPosPlayer, getScreenWidth, getScreenHeight;
-    public Player(int x, int y){
+
+    Player(int x, int y){
         this.xPosPlayer = x;
         this.yPosPlayer = y;
 
@@ -18,7 +19,9 @@ public abstract class Player {
 
     public abstract void movement();
 
-    public abstract  void collision();
+    public abstract  void collisionDetection();
+
+    public abstract boolean playerColliding(int x, int y);
 
 
 }

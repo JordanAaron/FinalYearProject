@@ -4,6 +4,7 @@ import MapComponents.Component;
 import MapComponents.Platform;
 import PlayerCharacters.GenericPlayer;
 import PlayerCharacters.Player;
+import PlayerCharacters.TrainingPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class TestingMap extends JPanel {
     private MapFrame frame;
     //Players
     public static GenericPlayer p1 = new GenericPlayer(27,60-7,Color.cyan);
+    public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
     //MapComponents
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     public static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
@@ -33,6 +35,9 @@ public class TestingMap extends JPanel {
         this.components.add(rightPlatform);
 
         this.players.add(p1);
+        this.players.add(trainingPlayer);
+        //future note: depending on how many players are selected for the game
+        // in the menu is how many will be added to the list
     }
 
     private int getWindowWidth(){

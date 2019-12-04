@@ -1,21 +1,32 @@
 package PlayerCharacters;
 
-import Maps.MapFrame;
 import Maps.TestingMap;
-
 import java.awt.*;
 
 public class GenericPlayer extends Player {
     private int playerWidth, playerHeight;
-    private double xSpeed, ySpeed;
-    private boolean canJump, canMove;
-
-    private int xPos;
-    private int yPos;
-
     private int jumpCounter;
+    private double playerSpeed,xSpeed, ySpeed;
+    private boolean canMove;
 
-    Color color;
+    private boolean lookingLeft, lookingRight;
+
+    private int health;
+    private int maxHealth;
+    private boolean dead;
+    private boolean flinching;
+    private long flinchTime;
+
+    private int lightAttack;
+    private int heavyAttack;
+    private int hitDelay;
+    private boolean lightAttacking;
+    private boolean heavyAttacking;
+
+
+
+    //delete later
+    private Color color;
 
     public GenericPlayer(int x, int y, Color c){
         super(x,y);
@@ -24,62 +35,43 @@ public class GenericPlayer extends Player {
         playerWidth = 4;
         playerHeight = 7;
 
+        jumpCounter = 0;
+        playerSpeed = 0.5;
         xSpeed = 0;
         ySpeed = 0;
 
         canMove = true;
 
-        canJump = true;
-        jumpCounter = 0;
+        maxHealth = 100;
 
+        dead = false;
+
+        lightAttack = 4;
+        heavyAttack = 7;
+        lightAttacking = false;
+        heavyAttacking = false;
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(color);
-
-        xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
-        yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
+        int xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
+        int yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
         int w = (int)(((double) playerWidth /100) * this.getScreenWidth);
         int h = (int)(((double) playerHeight /100) * this.getScreenHeight);
 
-        g.fillRect(xPos,yPos,w,h);
+        g.setColor(color);
+        g.drawRect(xPos,yPos,w,h);
     }
 
     public void updateWidth(int w){this.getScreenWidth = w;}
 
     public void updateHeight(int h){this.getScreenHeight = h;}
 
-    public void upArrow(){
-        if(jumpCounter < 2){
-            ySpeed = 9;
-            jumpCounter++;
-            canJump = false;
-        }
-        System.out.println(jumpCounter);
-    }
-
-    public void leftArrow(){
-        xSpeed = -2;
-    }
-
-    public void rightArrow(){
-        xSpeed = 2;
-    }
-
-    public void startMoving(){
-        canMove = true;
-    }
-
-    public void stopMoving(){
-        canMove = false;
-    }
-
     @Override
     public void movement() {
         xPosPlayer += xSpeed;
         yPosPlayer -= ySpeed;
-        collision();
+        collisionDetection();
         outOfBounds();
 
         //System.out.println(ySpeed);
@@ -99,48 +91,64 @@ public class GenericPlayer extends Player {
         }
     }
 
-    public void collision(){
-        if (yPosPlayer >= (TestingMap.floor.yPosMapComp - playerHeight)){
+    public void collisionDetection(){
+        int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
+        int yCheck = yPosPlayer + playerHeight;
+
+        if (TestingMap.floor.MapColliding(xCheck, yCheck)) {
             yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
-            canJump = true;
+            jumpCounter = 0;
+            ySpeed = 0;
+        } else if (TestingMap.leftPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+            yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
+            jumpCounter = 0;
+            ySpeed = 0;
+        } else if (TestingMap.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+            yPosPlayer = (TestingMap.rightPlatform.yPosMapComp - playerHeight);
             jumpCounter = 0;
             ySpeed = 0;
         } else {
             initiateGravity();
         }
 
-
-        if (TestingMap.leftPlatform.colliding((int) (xPosPlayer + (0.5 * playerWidth)),yPosPlayer + playerHeight)){
-            //yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
-            canJump = true;
-            jumpCounter = 0;
-            ySpeed = 0;
-            System.out.println("collide");
+        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
+            System.out.println("light attack collision");
+        } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
+            System.out.println("heavy attack collision");
         }
-
-//        if(/*yPosPlayer <= (TestingMap.leftPlatform.yPosMapComp - playerHeight) &&*/ xPosPlayer >= (TestingMap.leftPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.leftPlatform.xPosMapComp + TestingMap.leftPlatform.w) && ySpeed <= 0){
-//            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)) {
-//                yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
-//                canJump = true;
-//                jumpCounter = 0;
-//                ySpeed = 0;
-//            }
-//        }
-//
-//        if(yPosPlayer <= (TestingMap.rightPlatform.yPosMapComp - playerHeight) && xPosPlayer >= (TestingMap.rightPlatform.xPosMapComp - playerWidth) && xPosPlayer <=(TestingMap.rightPlatform.xPosMapComp + TestingMap.rightPlatform.w) && ySpeed <=0){
-//            if(yPosPlayer >= (TestingMap.leftPlatform.yPosMapComp - playerHeight)){
-//                canJump = true;
-//                jumpCounter = 0;
-//                ySpeed = 0;
-//            }
-//        }
-
 
     }
 
-    private double initiateGravity(){
+    public boolean playerColliding(int xPlayer, int yPlayer){
+        //check the bound of the direction the player is looking in
+        return false;
+    }
+
+    public void up(){
+        if(jumpCounter < 2){
+            ySpeed = 9;
+            jumpCounter++;
+        }
+    }
+
+    public void left(){
+        xSpeed = -2;
+    }
+
+    public void right(){
+        xSpeed = 2;
+    }
+
+    public void startMoving(){
+        canMove = true;
+    }
+
+    public void stopMoving(){
+        canMove = false;
+    }
+
+    private void initiateGravity(){
         ySpeed -= 1;
-        return ySpeed;
     }
 
     private void outOfBounds(){
@@ -152,4 +160,24 @@ public class GenericPlayer extends Player {
         }
 
     }
+
+    public void lightAttack(){
+        lightAttacking = true;
+    }
+
+    public void stopLightAttack(){
+        //where you implement the hit delay
+        lightAttacking = false;
+    }
+
+    public void heavyAttack(){
+        heavyAttacking = true;
+    }
+
+    public void stopHeavyAttack(){
+        //where you implement the hit delay
+        heavyAttacking = false;
+    }
+
+
 }

@@ -20,6 +20,6 @@ public abstract class Component {
 
     public abstract void updateHeight(int h);
 
-    public abstract boolean colliding(int x, int y);
+    public abstract boolean MapColliding(int x, int y);
 
 }

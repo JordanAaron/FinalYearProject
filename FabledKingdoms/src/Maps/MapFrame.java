@@ -66,6 +66,7 @@ public class MapFrame extends JFrame implements Runnable  {
                     frames = 0;
                 }
             }
+
             if (ticked){
                 frames +=2;
             }
