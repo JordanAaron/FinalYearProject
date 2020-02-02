@@ -1,8 +1,5 @@
 package GUI;
 
-import Maps.MapFrame;
-import Maps.TestingMap;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,8 +34,7 @@ public class MainMenu extends JPanel {
 
     public void components(){
         tabbedPane  = new JTabbedPane();
-        tabbedPane.setBackground(Color.black
-        );
+        tabbedPane.setBackground(Color.white);
 
         tabbedPane.addTab(generateHtml("Play", tabCss), new PlayTab());
         tabbedPane.addTab(generateHtml("Friends", tabCss), new FriendsTab());
@@ -62,7 +58,7 @@ public class MainMenu extends JPanel {
     }
 }
 class PlayTab extends JPanel{
-    JButton playBtn, customGameBtn, rankedBtn, trainingBtn;
+    JButton playBtn, sparMatchBtn, ctfBtn, rankedBtn, customGameBtn,trainingBtn;
 
     String css =
             "margin:0;" +
@@ -74,28 +70,44 @@ class PlayTab extends JPanel{
             "text-align:center;" +
             "border:none;";
 
-
-
     public PlayTab(){
         setBorder(BorderFactory.createLineBorder(Color.green));
+        setLayout(new GridLayout(0,3));
         components();
     }
 
     public void components(){
-        playBtn = new JButton(MainMenu.generateHtml("Play",css));
+        playBtn = new JButton(MainMenu.generateHtml("Quick Play",css));
         add(playBtn);
 
+        sparMatchBtn = new JButton(MainMenu.generateHtml("Sparring Match", css));
+        add(sparMatchBtn);
+
+        ctfBtn = new JButton(MainMenu.generateHtml("Capture The Flag", css));
+        add(ctfBtn);
+
+        rankedBtn = new JButton(MainMenu.generateHtml("Ranked Play", css));
+        add(rankedBtn);
+
+        customGameBtn = new JButton(MainMenu.generateHtml("Custom Games", css));
+        add(customGameBtn);
+
+        trainingBtn = new JButton(MainMenu.generateHtml("Training", css));
+        add(trainingBtn);
+
         buttonListeners();
+
+        JPanel partyPanel = new JPanel();
+        partyPanel.setLayout(new GridLayout(3,6));
+
+        partyPanel.add(new Label("Party:"));
+        add(partyPanel, BorderLayout.SOUTH);
     }
 
     public void buttonListeners(){
         playBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MapFrame frame = new MapFrame();
-                TestingMap testingMap = new TestingMap(frame);
-                frame.add(testingMap);
-                frame.pack();
             }
         });
     }

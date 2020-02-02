@@ -19,7 +19,7 @@ public abstract class Player {
 
     public abstract void movement();
 
-    public abstract  void collisionDetection();
+    public abstract void collisionDetection();
 
     public abstract boolean playerColliding(int x, int y);
 

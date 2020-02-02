@@ -43,6 +43,7 @@ public class GenericPlayer extends Player {
         canMove = true;
 
         maxHealth = 100;
+        health = 100;
 
         dead = false;
 
@@ -113,8 +114,10 @@ public class GenericPlayer extends Player {
 
         if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
             System.out.println("light attack collision");
+            damageImpact(lightAttack);
         } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
             System.out.println("heavy attack collision");
+            damageImpact(heavyAttack);
         }
 
     }
@@ -177,6 +180,16 @@ public class GenericPlayer extends Player {
     public void stopHeavyAttack(){
         //where you implement the hit delay
         heavyAttacking = false;
+    }
+
+    public void damageImpact(int damage){
+        health = health - damage;
+        System.out.println(health);
+
+        if (health <= 0){
+            health = 0;
+            //dead = true;
+        }
     }
 
 

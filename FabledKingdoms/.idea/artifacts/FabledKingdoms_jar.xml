@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FabledKingdoms:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FabledKingdoms_jar</output-path>
+    <root id="archive" name="FabledKingdoms.jar">
+      <element id="module-output" name="FabledKingdoms" />
+    </root>
+  </artifact>
+</component>

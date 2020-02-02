@@ -17,6 +17,7 @@ public class Platform extends Component {
 
         g.setColor(c);
         g.fillRect(xPos, yPos,width, height);
+
     }
 
     @Override
