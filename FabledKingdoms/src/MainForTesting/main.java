@@ -10,7 +10,7 @@ public class main {
         Blockage blockage = new Blockage(frame);
         Pillars pillars = new Pillars(frame);
         //frame.add(testingMap);
-        frame.add(pillars);
+        frame.add(blockage);
         frame.pack();
         //System.out.println(frame.getContentPane().getSize());
     }
