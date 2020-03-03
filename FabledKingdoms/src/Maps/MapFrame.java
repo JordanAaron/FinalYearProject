@@ -72,6 +72,7 @@ public class MapFrame extends JFrame implements Runnable  {
             }
 
             TestingMap.p1.movement();
+            TestingMap.p2.movement();
             repaint();
 
             try {

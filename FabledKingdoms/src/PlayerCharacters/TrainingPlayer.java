@@ -8,6 +8,8 @@ public class TrainingPlayer extends Player {
     private int playerWidth, playerHeight;
     private double ySpeed;
 
+    private int jumpCounter;
+
     private boolean lookingLeft, lookingRight;
 
     private int health;
@@ -26,6 +28,7 @@ public class TrainingPlayer extends Player {
         playerWidth = 4;
         playerHeight = 7;
 
+        jumpCounter = 0;
         ySpeed = 0;
 
         maxHealth = 100;
@@ -82,6 +85,14 @@ public class TrainingPlayer extends Player {
             return true;
         }
         return false;
+    }
+
+    public void up(){
+        System.out.println("Got here");
+        if(jumpCounter < 2){
+            ySpeed = 9;
+            jumpCounter++;
+        }
     }
 
     private void initiateGravity(){

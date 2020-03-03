@@ -16,6 +16,7 @@ public class TestingMap extends JPanel {
     private MapFrame frame;
     //Players
     public static GenericPlayer p1 = new GenericPlayer(27,60-7,Color.cyan);
+    public static  GenericPlayer p2 = new GenericPlayer(72,60-7,Color.pink);
     public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
     //MapComponents
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
@@ -35,6 +36,7 @@ public class TestingMap extends JPanel {
         this.components.add(rightPlatform);
 
         this.players.add(p1);
+        this.players.add(p2);
         this.players.add(trainingPlayer);
         //future note: depending on how many players are selected for the game
         // in the menu is how many will be added to the list

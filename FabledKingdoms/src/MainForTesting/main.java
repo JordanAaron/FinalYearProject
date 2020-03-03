@@ -9,8 +9,8 @@ public class main {
         TestingMap testingMap = new TestingMap(frame);
         Blockage blockage = new Blockage(frame);
         Pillars pillars = new Pillars(frame);
-        //frame.add(testingMap);
-        frame.add(blockage);
+        frame.add(testingMap);
+        //frame.add(blockage);
         frame.pack();
         //System.out.println(frame.getContentPane().getSize());
     }

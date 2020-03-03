@@ -1,5 +1,7 @@
 package InputHandling;
 
+import GUI.InGameMenu;
+import GUI.MainMenu;
 import Maps.TestingMap;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,6 +16,7 @@ public class InputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
             TestingMap.p1.up();
+            System.out.println("up arrow pressed");
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
         }
@@ -36,6 +39,11 @@ public class InputHandler implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             System.out.println("Space bar pressed");
         }
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.out.println("Escape Pressed");
+            MainMenu.frame.setContentPane(new InGameMenu());
+        }
+
     }
 
     @Override

@@ -1,11 +1,17 @@
 package GUI;
 
+import Maps.MapFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static GUI.MainMenu.frame;
+
 public class MainMenu extends JPanel {
+    public static JFrame frame = new JFrame();
+
     private JTabbedPane tabbedPane;
 
     public String tabCss =
@@ -22,7 +28,7 @@ public class MainMenu extends JPanel {
 //                    "height:10px;" +
 //                    "border-radius:3px;" +
 //                    "padding:10px;" +
-//                    "background:#fff;" +
+//                    "backg round:#fff;" +
 //                    "text-align:center;" +
 //                    "border:none;";
 
@@ -49,16 +55,17 @@ public class MainMenu extends JPanel {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
         frame.setPreferredSize(new Dimension(800,600));
         frame.pack();
         frame.add(new MainMenu());
+        //frame.add(new LocalPlayMenu(new MapFrame()));
+        //frame.add(new MapSelectionMenu());
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
 class PlayTab extends JPanel{
-    JButton playBtn, sparMatchBtn, ctfBtn, rankedBtn, customGameBtn,trainingBtn;
+    JButton playBtn, sparMatchBtn, ctfBtn, rankedBtn, customGameBtn, localPlayBtn;
 
     String css =
             "margin:0;" +
@@ -92,8 +99,8 @@ class PlayTab extends JPanel{
         customGameBtn = new JButton(MainMenu.generateHtml("Custom Games", css));
         add(customGameBtn);
 
-        trainingBtn = new JButton(MainMenu.generateHtml("Training", css));
-        add(trainingBtn);
+        localPlayBtn = new JButton(MainMenu.generateHtml("Local Play", css));
+        add(localPlayBtn);
 
         buttonListeners();
 
@@ -108,6 +115,15 @@ class PlayTab extends JPanel{
         playBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        localPlayBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(new LocalPlayMenu());
+                frame.invalidate();
+                frame.validate();
             }
         });
     }

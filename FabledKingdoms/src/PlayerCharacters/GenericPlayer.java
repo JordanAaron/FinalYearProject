@@ -112,14 +112,21 @@ public class GenericPlayer extends Player {
             initiateGravity();
         }
 
-        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
+//        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
+//            System.out.println("light attack collision");
+//            damageImpact(lightAttack);
+//        } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
+//            System.out.println("heavy attack collision");
+//            damageImpact(heavyAttack);
+//        }
+
+        if (TestingMap.p2.playerColliding(xCheck,yCheck) && lightAttacking){
             System.out.println("light attack collision");
             damageImpact(lightAttack);
-        } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
+        } else if (TestingMap.p2.playerColliding(xCheck,yCheck) && heavyAttacking){
             System.out.println("heavy attack collision");
             damageImpact(heavyAttack);
         }
-
     }
 
     public boolean playerColliding(int xPlayer, int yPlayer){
