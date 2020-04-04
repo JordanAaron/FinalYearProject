@@ -1,61 +1,117 @@
 package InputHandling;
 
-import GUI.InGameMenu;
-import GUI.MainMenu;
 import Maps.TestingMap;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class InputHandler implements KeyListener {
+
+    public static int playerID;
+
+    public static void getPlayerID(int id){
+        playerID = id;
+    }
+
+
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+
+    //check if this is player one or player 2 before assigning
+
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
-            TestingMap.p1.up();
-            System.out.println("up arrow pressed");
+            //System.out.println("id: " + playerID);
+            if (playerID == 1){
+                TestingMap.p1.up();
+            } else if (playerID == 2) {
+                TestingMap.p2.up();
+            }
+            //System.out.println("up arrow pressed");
+            //Client.Client.playerMoved(true);
         }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){
-        }
+
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){}
+
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            TestingMap.p1.left();
-            TestingMap.p1.startMoving();
+            if (playerID == 1) {
+                TestingMap.p1.left();
+                TestingMap.p1.startMoving();
+            } else if (playerID == 2){
+                TestingMap.p2.left();
+                TestingMap.p2.startMoving();
+            }
+           // Client.Client.playerMoved(true);
         }
+
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            TestingMap.p1.right();
-            TestingMap.p1.startMoving();
+            if (playerID == 1) {
+                TestingMap.p1.right();
+                TestingMap.p1.startMoving();
+            } else if (playerID == 2){
+                TestingMap.p2.right();
+                TestingMap.p2.startMoving();
+            }
+            //Client.Client.playerMoved(true);
         }
+
         if(e.getKeyCode() == KeyEvent.VK_X){
             System.out.println("Light Attack!");
-            TestingMap.p1.lightAttack();
+            if (playerID == 1) {
+                TestingMap.p1.lightAttack();
+            } else if (playerID == 2){
+                TestingMap.p2.lightAttack();
+            }
         }
+
         if(e.getKeyCode() == KeyEvent.VK_Z){
             System.out.println("Heavy Attack");
-            TestingMap.p1.heavyAttack();
+            if (playerID == 1) {
+                TestingMap.p1.heavyAttack();
+            } else if (playerID == 2){
+                TestingMap.p2.heavyAttack();
+            }
         }
+
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             System.out.println("Space bar pressed");
         }
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            System.out.println("Escape Pressed");
-            MainMenu.frame.setContentPane(new InGameMenu());
-        }
+
+        //Open in game menu
+//        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+//            System.out.println("Escape Pressed");
+//            MainMenu.frame.setContentPane(new InGameMenu());
+//        }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT){
-            TestingMap.p1.stopMoving();
+            if (playerID == 1) {
+                TestingMap.p1.stopMoving();
+            } else if (playerID == 2){
+                TestingMap.p2.stopMoving();
+            }
+            //Client.Client.playerMoved(false);
         }
         if(e.getKeyCode() == KeyEvent.VK_X){
-            TestingMap.p1.stopLightAttack();
+            if (playerID == 1) {
+                TestingMap.p1.stopLightAttack();
+            } else if (playerID == 2){
+                TestingMap.p2.stopLightAttack();
+            }
         }
         if(e.getKeyCode() == KeyEvent.VK_Z){
-            TestingMap.p1.stopHeavyAttack();
+            if (playerID == 1) {
+                TestingMap.p1.stopHeavyAttack();
+            } else if (playerID == 2){
+                TestingMap.p2.stopHeavyAttack();
+            }
         }
 
     }
