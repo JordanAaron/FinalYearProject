@@ -1,5 +1,6 @@
 package GUI;
 
+import InputHandling.MultiPlayerInputHandling;
 import Maps.Blockage;
 import Maps.MapFrame;
 import Maps.Pillars;
@@ -36,14 +37,14 @@ public class MapSelectionMenu extends JPanel {
         add(midPanel, BorderLayout.CENTER);
 
         mapBtn1 = new JButton("Map 1");
-        mapBtn1.setForeground(Color.white);
-        try{
-            Image img = ImageIO.read(new FileInputStream("C:\\Users\\JQuar\\Documents\\Work\\Uni\\3rdYear\\CE301-CapstoneProject\\ce301_quartey_j\\FabledKingdoms\\src\\Res\\map1.bmp"));
-            Image newImg = img.getScaledInstance(mapBtn1.getSize().width, mapBtn1.getSize().height,Image.SCALE_SMOOTH);
-            mapBtn1.setIcon(new ImageIcon(newImg));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        mapBtn1.setForeground(Color.white);
+//        try{
+//            Image img = ImageIO.read(new FileInputStream("C:\\Users\\JQuar\\Documents\\Work\\Uni\\3rdYear\\CE301-CapstoneProject\\ce301_quartey_j\\FabledKingdoms\\src\\Res\\map1.bmp"));
+//            Image newImg = img.getScaledInstance(mapBtn1.getSize().width, mapBtn1.getSize().height,Image.SCALE_SMOOTH);
+//            mapBtn1.setIcon(new ImageIcon(newImg));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         midPanel.add(mapBtn1);
 
         mapBtn2 = new JButton("Map 2");
@@ -77,8 +78,9 @@ public class MapSelectionMenu extends JPanel {
         mapBtn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                MultiPlayerInputHandling.getMap("TestingMap");
                 MapFrame frame = new MapFrame();
-                TestingMap testingMap = new TestingMap(frame);
+                TestingMap testingMap = new TestingMap(frame,true);
                 frame.add(testingMap);
                 frame.pack();
 
@@ -89,6 +91,7 @@ public class MapSelectionMenu extends JPanel {
         mapBtn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                MultiPlayerInputHandling.getMap("Blockage");
                 MapFrame frame = new MapFrame();
                 Blockage blockage = new Blockage(frame);
                 frame.add(blockage);
@@ -101,12 +104,12 @@ public class MapSelectionMenu extends JPanel {
         mapBtn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MapFrame frame = new MapFrame();
-                Pillars pillars = new Pillars(frame);
-                frame.add(pillars);
-                frame.pack();
-
-                MainMenu.frame.dispose();
+//                MapFrame frame = new MapFrame();
+//                Pillars pillars = new Pillars(frame);
+//                frame.add(pillars);
+//                frame.pack();
+//
+//                MainMenu.frame.dispose();
             }
         });
 
