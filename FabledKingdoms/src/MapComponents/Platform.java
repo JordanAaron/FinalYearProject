@@ -1,5 +1,7 @@
 package MapComponents;
 
+import sun.awt.windows.WPrinterJob;
+
 import java.awt.*;
 
 public class Platform extends Component {
@@ -31,7 +33,24 @@ public class Platform extends Component {
     }
 
     @Override
-    public boolean MapColliding(int xPlayer, int yPlayer) {
+    public boolean MapColliding(int leftX, int rightX, int topY, int bottomY) {
+        if (rightX > this.xPosMapComp && leftX < (this.xPosMapComp + this.w)){
+            if (bottomY > this.yPosMapComp && topY < (this.yPosMapComp + this.h)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean componentCollide(int playerTop, int playerBottom){
+        int componentLeft = this.xPosMapComp, componentRight = this.xPosMapComp + this.w;
+//        if (abovePlatform()){
+//
+//        }
+        return false;
+    }
+
+    private boolean abovePlatform(int xPlayer, int yPlayer){
         if (xPlayer >= this.xPosMapComp && xPlayer <= (this.xPosMapComp + this.w)){
             if (yPlayer >= this.yPosMapComp){
                 return true;
@@ -39,4 +58,30 @@ public class Platform extends Component {
         }
         return false;
     }
+
+    //check if we're going into each side of the platform
+
+    public boolean collideWithLeft(int xPlayer, int yPlayer){
+        int leftOfPlatform = this.xPosMapComp;
+        int platformHeight = this.yPosMapComp;
+
+        if (xPlayer > leftOfPlatform && yPlayer >= platformHeight){
+            return true;
+        }
+//        else if (xPlayer > leftOfPlatform && yPlayer < platformHeight){
+//            return false;
+//        }
+        return false;
+    }
+
+    public boolean collideWithTop(int xPlayer, int yPlayer){
+        int platformHeight = this.yPosMapComp;
+        if (xPlayer >= this.xPosMapComp && xPlayer <= (this.xPosMapComp + this.w)){
+            if (yPlayer < platformHeight){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -8,7 +8,6 @@ public class TrainingPlayer extends Player {
     private int playerWidth, playerHeight;
     private double ySpeed;
 
-    private int jumpCounter;
 
     private boolean lookingLeft, lookingRight;
 
@@ -28,7 +27,6 @@ public class TrainingPlayer extends Player {
         playerWidth = 4;
         playerHeight = 7;
 
-        jumpCounter = 0;
         ySpeed = 0;
 
         maxHealth = 100;
@@ -68,15 +66,15 @@ public class TrainingPlayer extends Player {
         int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
         int yCheck = yPosPlayer + playerHeight;
 
-        if (TestingMap.floor.MapColliding(xCheck, yCheck)) {
-            yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
-        } else if (TestingMap.leftPlatform.MapColliding(xCheck,yCheck) && ySpeed < 0){
-            yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
-        } else if (TestingMap.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
-            yPosPlayer = (TestingMap.rightPlatform.yPosMapComp - playerHeight);
-        } else {
-            initiateGravity();
-        }
+//        if (TestingMap.floor.MapColliding(xCheck, yCheck)) {
+//            yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
+//        } else if (TestingMap.leftPlatform.MapColliding(xCheck,yCheck) && ySpeed < 0){
+//            yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
+//        } else if (TestingMap.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+//            yPosPlayer = (TestingMap.rightPlatform.yPosMapComp - playerHeight);
+//        } else {
+//            initiateGravity();
+//        }
     }
 
     @Override
@@ -87,13 +85,6 @@ public class TrainingPlayer extends Player {
         return false;
     }
 
-    public void up(){
-        System.out.println("Got here");
-        if(jumpCounter < 2){
-            ySpeed = 9;
-            jumpCounter++;
-        }
-    }
 
     private void initiateGravity(){
         ySpeed -=1;

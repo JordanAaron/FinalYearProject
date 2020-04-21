@@ -36,7 +36,7 @@ public class MapSelectionMenu extends JPanel {
         midPanel.setLayout(new GridLayout(2,3));
         add(midPanel, BorderLayout.CENTER);
 
-        mapBtn1 = new JButton("Map 1");
+        mapBtn1 = new JButton("TestingMap");
 //        mapBtn1.setForeground(Color.white);
 //        try{
 //            Image img = ImageIO.read(new FileInputStream("C:\\Users\\JQuar\\Documents\\Work\\Uni\\3rdYear\\CE301-CapstoneProject\\ce301_quartey_j\\FabledKingdoms\\src\\Res\\map1.bmp"));
@@ -47,10 +47,10 @@ public class MapSelectionMenu extends JPanel {
 //        }
         midPanel.add(mapBtn1);
 
-        mapBtn2 = new JButton("Map 2");
+        mapBtn2 = new JButton("Blockage");
         midPanel.add(mapBtn2);
 
-        mapBtn3 = new JButton("Map 3");
+        mapBtn3 = new JButton("Pillars");
         midPanel.add(mapBtn3);
 
         JButton mapBtn4 = new JButton("Map 4");
@@ -104,12 +104,13 @@ public class MapSelectionMenu extends JPanel {
         mapBtn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                MapFrame frame = new MapFrame();
-//                Pillars pillars = new Pillars(frame);
-//                frame.add(pillars);
-//                frame.pack();
-//
-//                MainMenu.frame.dispose();
+                MultiPlayerInputHandling.getMap("Pillars");
+                MapFrame frame = new MapFrame();
+                Pillars pillars = new Pillars(frame);
+                frame.add(pillars);
+                frame.pack();
+
+                MainMenu.frame.dispose();
             }
         });
 

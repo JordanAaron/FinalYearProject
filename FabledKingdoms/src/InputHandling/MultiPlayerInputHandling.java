@@ -1,6 +1,7 @@
 package InputHandling;
 
 import Maps.Blockage;
+import Maps.Pillars;
 import Maps.TestingMap;
 
 import java.awt.event.KeyEvent;
@@ -26,6 +27,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.up();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.up();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.up();
             }
         }
 
@@ -36,6 +39,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.left();
                 Blockage.p1.startMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.left();
+                Pillars.p1.startMoving();
             }
 
         }
@@ -46,6 +52,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.right();
                 Blockage.p1.startMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.right();
+                Pillars.p1.startMoving();
             }
 
         }
@@ -54,6 +63,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.lightAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.lightAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.lightAttack();
             }
             System.out.println("Light Attack!");
         }
@@ -62,6 +73,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.heavyAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.heavyAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.heavyAttack();
             }
             System.out.println("Heavy Attack");
         }
@@ -71,6 +84,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p2.up();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.up();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.up();
             }
         }
 
@@ -81,6 +96,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.left();
                 Blockage.p2.startMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.left();
+                Pillars.p2.startMoving();
             }
         }
 
@@ -91,6 +109,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.right();
                 Blockage.p2.startMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.right();
+                Pillars.p2.startMoving();
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_G){
@@ -98,22 +119,24 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p2.lightAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.lightAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.lightAttack();
             }
             System.out.println("Light Attack!");
 
         }
+
         if(e.getKeyCode() == KeyEvent.VK_H){
             if (mapSelection.equals("TestingMap")){
                 TestingMap.p2.heavyAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.heavyAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.heavyAttack();
             }
             System.out.println("Heavy Attack");
 
         }
-//        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-//            System.out.println("Space bar pressed");
-//        }
     }
 
     @Override
@@ -123,6 +146,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.stopMoving();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.stopMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.stopMoving();
             }
         }
 
@@ -131,6 +156,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.stopLightAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.stopLightAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.stopLightAttack();
             }
         }
 
@@ -139,6 +166,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p1.stopHeavyAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p1.stopHeavyAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p1.stopHeavyAttack();
             }
         }
 
@@ -146,9 +175,10 @@ public class MultiPlayerInputHandling implements KeyListener {
             if (mapSelection.equals("TestingMap")){
                 TestingMap.p2.stopMoving();
             } else if (mapSelection.equals("Blockage")){
-                Blockage.p2.stopMoving();
+                Blockage.p2.startMoving();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.stopMoving();
             }
-
         }
 
         if(e.getKeyCode() == KeyEvent.VK_P){
@@ -156,6 +186,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p2.stopLightAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.stopLightAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.stopLightAttack();
             }
         }
 
@@ -164,8 +196,9 @@ public class MultiPlayerInputHandling implements KeyListener {
                 TestingMap.p2.stopHeavyAttack();
             } else if (mapSelection.equals("Blockage")){
                 Blockage.p2.stopHeavyAttack();
+            } else if (mapSelection.equals("Pillars")){
+                Pillars.p2.stopHeavyAttack();
             }
-
         }
     }
 }

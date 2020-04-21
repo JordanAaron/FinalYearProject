@@ -1,12 +1,14 @@
 package PlayerCharacters;
 
+import Maps.Blockage;
+import Maps.Pillars;
 import Maps.TestingMap;
 import java.awt.*;
 
 public class GenericPlayer extends Player {
     private int playerWidth, playerHeight;
     private int jumpCounter;
-    private double playerSpeed,xSpeed, ySpeed;
+    public double playerSpeed,xSpeed, ySpeed;
     private boolean canMove;
 
     private boolean lookingLeft, lookingRight;
@@ -23,14 +25,18 @@ public class GenericPlayer extends Player {
     private boolean lightAttacking;
     private boolean heavyAttacking;
 
-
+    public int xPos, yPos, w, h;
 
     //delete later
     private Color color;
 
-    public GenericPlayer(int x, int y, Color c){
+    private String mapSelection;
+
+    public GenericPlayer(int x, int y, Color c, String map){
         super(x,y);
         this.color = c;
+        this.mapSelection = map;
+        //System.out.println(mapSelection);
 
         playerWidth = 4;
         playerHeight = 7;
@@ -55,10 +61,10 @@ public class GenericPlayer extends Player {
 
     @Override
     public void draw(Graphics g) {
-        int xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
-        int yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
-        int w = (int)(((double) playerWidth /100) * this.getScreenWidth);
-        int h = (int)(((double) playerHeight /100) * this.getScreenHeight);
+        xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
+        yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
+        w = (int)(((double) playerWidth /100) * this.getScreenWidth);
+        h = (int)(((double) playerHeight /100) * this.getScreenHeight);
 
         g.setColor(color);
         g.drawRect(xPos,yPos,w,h);
@@ -75,8 +81,6 @@ public class GenericPlayer extends Player {
         collisionDetection();
         outOfBounds();
 
-        //System.out.println(ySpeed);
-
         if(!canMove){
             if (xSpeed < 0){
                 xSpeed += 0.5;
@@ -92,26 +96,43 @@ public class GenericPlayer extends Player {
         }
     }
 
+    public void onlineMovement(int x, int y){
+        //System.out.println(xPos + "," + yPos);
+        xPosPlayer = x;
+        yPosPlayer = y;
+        //System.out.println(xPos + yPos);
+    }
+
     public void collisionDetection(){
-        int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
-        int yCheck = yPosPlayer + playerHeight;
-
-        if (TestingMap.floor.MapColliding(xCheck, yCheck)) {
-            yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
-            jumpCounter = 0;
-            ySpeed = 0;
-        } else if (TestingMap.leftPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
-            yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
-            jumpCounter = 0;
-            ySpeed = 0;
-        } else if (TestingMap.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
-            yPosPlayer = (TestingMap.rightPlatform.yPosMapComp - playerHeight);
-            jumpCounter = 0;
-            ySpeed = 0;
-        } else {
-            initiateGravity();
+        if (mapSelection.equals("TestingMap")){
+            testingMapCollisions();
+        } else if (mapSelection.equals("Blockage")){
+            blockageCollisions();
+        } else if (mapSelection.equals("Pillars")){
+            pillarsCollisions();
         }
+    }
 
+    public void testingMapCollisions(){
+//        int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
+//        int yCheck = yPosPlayer + playerHeight;
+//
+//        if (TestingMap.floor.MapColliding(xCheck, yCheck)) {
+//            yPosPlayer = (TestingMap.floor.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (TestingMap.leftPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+//            yPosPlayer = (TestingMap.leftPlatform.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (TestingMap.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+//            yPosPlayer = (TestingMap.rightPlatform.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else {
+//            initiateGravity();
+//        }
+//
 //        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
 //            System.out.println("light attack collision");
 //            damageImpact(lightAttack);
@@ -119,18 +140,139 @@ public class GenericPlayer extends Player {
 //            System.out.println("heavy attack collision");
 //            damageImpact(heavyAttack);
 //        }
+//
+//        if (TestingMap.p2.playerColliding(xCheck,yCheck) && lightAttacking){
+//            System.out.println("light attack collision");
+//            damageImpact(lightAttack);
+//        } else if (TestingMap.p2.playerColliding(xCheck,yCheck) && heavyAttacking){
+//            System.out.println("heavy attack collision");
+//            damageImpact(heavyAttack);
+//        }
+    }
 
-        if (TestingMap.p2.playerColliding(xCheck,yCheck) && lightAttacking){
-            System.out.println("light attack collision");
-            damageImpact(lightAttack);
-        } else if (TestingMap.p2.playerColliding(xCheck,yCheck) && heavyAttacking){
-            System.out.println("heavy attack collision");
-            damageImpact(heavyAttack);
+    public void blockageCollisions(){
+        int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
+        int yCheck = yPosPlayer + playerHeight;
+
+//        if (Blockage.floor.MapColliding(xCheck, yCheck)) {
+//            yPosPlayer = (Blockage.floor.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (Blockage.leftPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+//            yPosPlayer = (Blockage.leftPlatform.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (Blockage.rightPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0) {
+//            yPosPlayer = (Blockage.rightPlatform.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (Blockage.topPlatform.MapColliding(xCheck, yCheck) && ySpeed < 0){
+//            yPosPlayer = (Blockage.topPlatform.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else if (Blockage.block.MapColliding(xCheck,yCheck) && ySpeed <= 0) {
+//            yPosPlayer = (Blockage.block.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+//        } else {
+//            initiateGravity();
+//        }
+    }
+
+    public void pillarsCollisions(){
+        int xCheck = (int)(xPosPlayer + (0.5 * playerWidth));
+        int yCheck = yPosPlayer + playerHeight;
+
+        if (Pillars.floor.MapColliding(getLeftX(),getRightX(),getTopY(),getBottomY())) {
+
+            yPosPlayer = (Pillars.floor.yPosMapComp - playerHeight);
+            jumpCounter = 0;
+            ySpeed = 0;
+        } else if (Pillars.rightPillar.MapColliding(getLeftX(), getRightX(),getTopY(),getBottomY())) {
+            //System.out.println("collision");
+
+
+            System.out.println("x: "+ overlap(getRightX(), Pillars.rightPillar.xPosMapComp));
+            System.out.println("y: "+ overlap(getBottomY(), Pillars.rightPillar.yPosMapComp));
+
+            if (getTopY() > (Pillars.rightPillar.yPosMapComp + playerHeight) || getLeftX() > (Pillars.rightPillar.xPosMapComp + playerWidth)){
+                if (Math.abs(getRightX()-Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY()-Pillars.rightPillar.yPosMapComp)){
+                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+                    jumpCounter = 0;
+                } else {
+                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+                }
+            } else {
+                if (Math.abs(getRightX()-Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY()-Pillars.rightPillar.yPosMapComp)){
+                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+                } else {
+                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+                    jumpCounter = 0;
+                }
+            }
+
+
+
+
+//            yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+
+//            if (xSpeed < 0){
+//                xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+//            }
+
+//            if (getBottomY() > Pillars.rightPillar.yPosMapComp){
+//
+//            }
+//            if (getRightX() > Pillars.rightPillar.xPosMapComp && getBottomY() > Pillars.rightPillar.yPosMapComp){
+//                xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+//                xSpeed = 0;
+//            }
+
+
+            //System.out.println("collision");
+
+
+//        } else if (Pillars.rightPillar.collideWithTop(xCheck,yCheck) && ySpeed < 0){
+//            yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+//            jumpCounter = 0;
+//            ySpeed = 0;
+
+//        } else if ((xPosPlayer + playerWidth) > Pillars.rightPillar.xPosMapComp){
+//            xPosPlayer = Pillars.rightPillar.xPosMapComp - playerWidth;
+        } else {
+            initiateGravity();
         }
+
+        //if you're on the right side of the platform then compare the left side of the player, otherwise compare the right side of the player
+    }
+
+    public int getLeftX(){
+        return xPosPlayer;
+    }
+
+    public int getRightX(){
+        return xPosPlayer + playerWidth;
+    }
+
+    public int getTopY(){
+        return yPosPlayer;
+    }
+
+    public int getBottomY(){
+        return yPosPlayer + playerHeight;
+    }
+
+    private int overlap(int playerPosition, int objectPosition){
+        return Math.abs(playerPosition - objectPosition);
     }
 
     public boolean playerColliding(int xPlayer, int yPlayer){
         //check the bound of the direction the player is looking in
+        if (xPlayer >= this.xPosPlayer && xPlayer <= (this.xPosPlayer + this.playerWidth)){
+            return true;
+        }
         return false;
     }
 
@@ -157,18 +299,18 @@ public class GenericPlayer extends Player {
         canMove = false;
     }
 
-    private void initiateGravity(){
-        ySpeed -= 1;
+    public void initiateGravity(){
+        ySpeed -= 2;
     }
 
     private void outOfBounds(){
         if(xPosPlayer < 0){
             xPosPlayer = 0;
         }
-        if ((xPosPlayer + playerWidth) > 100){
+        if (getRightX() > 100){
             xPosPlayer = 100 - playerWidth;
+            //xSpeed = 0;
         }
-
     }
 
     public void lightAttack(){
@@ -198,6 +340,4 @@ public class GenericPlayer extends Player {
             //dead = true;
         }
     }
-
-
 }

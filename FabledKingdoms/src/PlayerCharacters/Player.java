@@ -3,7 +3,7 @@ package PlayerCharacters;
 import java.awt.*;
 
 public abstract class Player {
-    int xPosPlayer, yPosPlayer, getScreenWidth, getScreenHeight;
+    public int xPosPlayer, yPosPlayer, getScreenWidth, getScreenHeight;
 
     Player(int x, int y){
         this.xPosPlayer = x;

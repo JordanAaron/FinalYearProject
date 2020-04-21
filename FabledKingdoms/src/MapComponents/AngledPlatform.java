@@ -35,7 +35,8 @@ public class AngledPlatform extends Component {
     }
 
     @Override
-    public boolean MapColliding(int x, int y) {
+    public boolean MapColliding(int leftX, int rightX, int topY, int bottomY) {
         return false;
     }
+
 }

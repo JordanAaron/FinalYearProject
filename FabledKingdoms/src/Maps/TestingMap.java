@@ -1,5 +1,6 @@
 package Maps;
 
+import InputHandling.InputHandler;
 import MapComponents.Component;
 import MapComponents.Platform;
 import PlayerCharacters.GenericPlayer;
@@ -14,17 +15,19 @@ import java.util.Random;
 
 public class TestingMap extends JPanel {
     private MapFrame frame;
-    //Players
-    public static GenericPlayer p1 = new GenericPlayer(27,60-7,Color.cyan);
-    public static  GenericPlayer p2 = new GenericPlayer(72,60-7,Color.pink);
-    public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
     //MapComponents
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     public static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
     public static Platform rightPlatform = new Platform(80 - 15,60,15,5,Color.white);
 
+    //Players
+    public static GenericPlayer p1 = new GenericPlayer(72,60-7, Color.pink, "TestingMap");
+    public static GenericPlayer p2 = new GenericPlayer(27,60-7, Color.cyan, "TestingMap");
+    public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
+
     private ArrayList<MapComponents.Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
+
 
 
     public TestingMap(MapFrame frame){
@@ -35,11 +38,34 @@ public class TestingMap extends JPanel {
         this.components.add(leftPlatform);
         this.components.add(rightPlatform);
 
-        this.players.add(p1);
-        this.players.add(p2);
-        this.players.add(trainingPlayer);
+//        this.players.add(p1);
+//        this.players.add(p2);
+        //this.players.add(trainingPlayer);
+
         //future note: depending on how many players are selected for the game
         // in the menu is how many will be added to the list
+    }
+
+    public TestingMap(MapFrame frame, Boolean offline){
+        this.frame = frame;
+        setBackground(Color.BLACK);
+
+        this.components.add(floor);
+        this.components.add(leftPlatform);
+        this.components.add(rightPlatform);
+
+        this.players.add(p1);
+        this.players.add(p2);
+        //this.players.add(trainingPlayer);
+
+        //future note: depending on how many players are selected for the game
+        // in the menu is how many will be added to the list
+    }
+
+    public void addPlayers(int playerID, int playerCount){
+        this.players.add(p1);
+        this.players.add(p2);
+        InputHandler.getPlayerID(playerID);
     }
 
     private int getWindowWidth(){
