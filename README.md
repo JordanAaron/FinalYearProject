@@ -10,9 +10,14 @@ Install Java SE 8:
 * Download the JDK from the Java SE download site http://www.oracle.com/technetwork/java/javase/downloads/index.html.
 * Run the download installer which installs both the JDK and JRE.
 
-## Versioning Strategy
 
 ## Authors
 * Jordan Quartey - Programmer/Developer
 
 ## References
+* D Johnson and J Wiles, Effective Affective User Interface Design in Games, 2010.
+* K Compton and M Mateas, Procedural Level Design for Platform Games, California: AAAI Press, 2006.
+* F.E. Hernandez and F.R. Ortega, A Graphical Domain-Specific Language for Modelling 2D Video Games, Nevada: ACM, 2010.
+* A Loew,How to create a sprite sheet, Available .
+* J Smed, T Kaukoranta and H Hakonen, Aspects of Networking in Multiplayer Computer Games, MCB UP Ltd, 2002.
+* Y W Bernier, Latency Compensating Methods in Client/Server In-game Protocol Design and Optimization, Available , 2001.
