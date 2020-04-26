@@ -1,6 +1,6 @@
 package GUI;
 
-import Client.Client;
+import OnlineConnectivity.Client.Client;
 import Maps.MapFrame;
 import Maps.TestingMap;
 
@@ -52,14 +52,14 @@ public class MainMenu extends JPanel {
     }
 
     public static String generateHtml(String tabLabel, String style){
-        String string = "<html><body style = '" + style + "'>" + tabLabel + "</body></html>";
-        return string;
+        return "<html><body style = '" + style + "'>" + tabLabel + "</body></html>";
     }
 
     public static void main(String[] args) {
         frame.setPreferredSize(new Dimension(800,600));
         frame.pack();
         frame.add(new MainMenu());
+        //frame.add(new InGameMenu());
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
@@ -84,7 +84,7 @@ class PlayTab extends JPanel{
     }
 
     public void components(){
-        playBtn = new JButton(MainMenu.generateHtml("Quick Play",css));
+        playBtn = new JButton(MainMenu.generateHtml("Online",css));
         add(playBtn);
 
 //        sparMatchBtn = new JButton(MainMenu.generateHtml("Sparring Match", css));
@@ -130,7 +130,7 @@ class PlayTab extends JPanel{
                     MainMenu.frame.dispose();
 
                 } catch (Exception e1){
-                    System.out.println("Client couldn't connect");
+                    System.out.println("OnlineConnectivity.Client couldn't connect");
                     e1.printStackTrace();
                 }
 

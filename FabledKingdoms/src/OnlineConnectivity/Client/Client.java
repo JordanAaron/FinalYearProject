@@ -1,4 +1,4 @@
-package Client;
+package OnlineConnectivity.Client;
 
 
 import Maps.TestingMap;

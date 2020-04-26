@@ -1,10 +1,8 @@
 package Maps;
 
-import Client.Client;
+import OnlineConnectivity.Client.Client;
 import InputHandling.InputHandler;
 import InputHandling.MultiPlayerInputHandling;
-import MapComponents.Component;
-import MapComponents.Platform;
 import Sprites.BufferedImageLoader;
 import Sprites.SpriteSheet;
 
@@ -133,12 +131,14 @@ public class MapFrame extends JFrame implements Runnable {
                 runBlockage();
             } else if (multiInput.mapSelection.equals("Pillars")){
                 runPillars();
+            } else if (multiInput.mapSelection.equals("CenterCore")){
+                runCenterCore();
             }
 
             repaint();
 
             try {
-                thread.sleep(33);
+                thread.sleep(35);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -164,14 +164,11 @@ public class MapFrame extends JFrame implements Runnable {
     private void runPillars(){
         Pillars.p1.movement();
         Pillars.p2.movement();
+    }
 
-//        for (Component c: Pillars.components){
-//            if (c.MapColliding(Pillars.p1.getLeftX(),Pillars.p1.getRightX(),Pillars.p1.getTopY(),Pillars.p1.getBottomY())){
-//                Pillars.p1.ySpeed =0;
-//            } else {
-//                Pillars.p1.initiateGravity();
-//            }
-//        }
+    private void runCenterCore(){
+        CenterCore.p1.movement();
+        CenterCore.p2.movement();
     }
 
     public static String getFPS(){

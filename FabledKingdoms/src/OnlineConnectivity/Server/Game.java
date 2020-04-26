@@ -1,10 +1,8 @@
-package Server;
+package OnlineConnectivity.Server;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 //update players positions in this class
 public class Game {

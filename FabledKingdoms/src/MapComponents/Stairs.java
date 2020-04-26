@@ -34,7 +34,7 @@ public class Stairs extends Component {
     }
 
     @Override
-    public boolean MapColliding(int leftX, int rightX, int topY, int bottomY) {
+    public boolean MapCollisionDetection(int leftX, int rightX, int topY, int bottomY) {
         return false;
     }
 

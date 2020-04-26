@@ -1,6 +1,7 @@
 package InputHandling;
 
 import Maps.Blockage;
+import Maps.CenterCore;
 import Maps.Pillars;
 import Maps.TestingMap;
 
@@ -29,6 +30,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.up();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.up();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.up();
             }
         }
 
@@ -42,6 +45,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.left();
                 Pillars.p1.startMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.left();
+                CenterCore.p1.startMoving();
             }
 
         }
@@ -55,6 +61,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.right();
                 Pillars.p1.startMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.right();
+                CenterCore.p1.startMoving();
             }
 
         }
@@ -65,6 +74,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.lightAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.lightAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.lightAttack();
             }
             System.out.println("Light Attack!");
         }
@@ -75,6 +86,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.heavyAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.heavyAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.heavyAttack();
             }
             System.out.println("Heavy Attack");
         }
@@ -86,6 +99,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.up();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.up();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.up();
             }
         }
 
@@ -99,6 +114,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.left();
                 Pillars.p2.startMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.left();
+                CenterCore.p2.startMoving();
             }
         }
 
@@ -112,6 +130,9 @@ public class MultiPlayerInputHandling implements KeyListener {
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.right();
                 Pillars.p2.startMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.right();
+                CenterCore.p2.startMoving();
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_G){
@@ -121,6 +142,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.lightAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.lightAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.lightAttack();
             }
             System.out.println("Light Attack!");
 
@@ -133,6 +156,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.heavyAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.heavyAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.heavyAttack();
             }
             System.out.println("Heavy Attack");
 
@@ -148,6 +173,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.stopMoving();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.stopMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.stopMoving();
             }
         }
 
@@ -158,6 +185,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.stopLightAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.stopLightAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.stopLightAttack();
             }
         }
 
@@ -168,6 +197,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p1.stopHeavyAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p1.stopHeavyAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p1.stopHeavyAttack();
             }
         }
 
@@ -178,6 +209,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.startMoving();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.stopMoving();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.stopMoving();
             }
         }
 
@@ -188,6 +221,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.stopLightAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.stopLightAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.stopLightAttack();
             }
         }
 
@@ -198,6 +233,8 @@ public class MultiPlayerInputHandling implements KeyListener {
                 Blockage.p2.stopHeavyAttack();
             } else if (mapSelection.equals("Pillars")){
                 Pillars.p2.stopHeavyAttack();
+            } else if (mapSelection.equals("CenterCore")){
+                CenterCore.p2.stopHeavyAttack();
             }
         }
     }

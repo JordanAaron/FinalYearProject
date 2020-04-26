@@ -32,7 +32,7 @@ public class InputHandler implements KeyListener {
                 TestingMap.p2.up();
             }
             //System.out.println("up arrow pressed");
-            //Client.Client.playerMoved(true);
+            //OnlineConnectivity.Client.OnlineConnectivity.Client.playerMoved(true);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_DOWN){}
@@ -45,7 +45,7 @@ public class InputHandler implements KeyListener {
                 TestingMap.p2.left();
                 TestingMap.p2.startMoving();
             }
-           // Client.Client.playerMoved(true);
+           // OnlineConnectivity.Client.OnlineConnectivity.Client.playerMoved(true);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
@@ -56,7 +56,7 @@ public class InputHandler implements KeyListener {
                 TestingMap.p2.right();
                 TestingMap.p2.startMoving();
             }
-            //Client.Client.playerMoved(true);
+            //OnlineConnectivity.Client.OnlineConnectivity.Client.playerMoved(true);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_X){
@@ -97,7 +97,7 @@ public class InputHandler implements KeyListener {
             } else if (playerID == 2){
                 TestingMap.p2.stopMoving();
             }
-            //Client.Client.playerMoved(false);
+            //OnlineConnectivity.Client.OnlineConnectivity.Client.playerMoved(false);
         }
         if(e.getKeyCode() == KeyEvent.VK_X){
             if (playerID == 1) {

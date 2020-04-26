@@ -1,4 +1,4 @@
-package Server;
+package OnlineConnectivity.Server;
 
 import java.io.IOException;
 import java.io.PrintWriter;

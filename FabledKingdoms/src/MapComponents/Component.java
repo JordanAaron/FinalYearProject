@@ -44,6 +44,6 @@ public abstract class Component {
 
     public abstract void updateHeight(int h);
 
-    public abstract boolean MapColliding(int leftX, int rightX, int topY, int bottomY);
+    public abstract boolean MapCollisionDetection(int leftX, int rightX, int topY, int bottomY);
 
 }

@@ -1,10 +1,7 @@
 package GUI;
 
 import InputHandling.MultiPlayerInputHandling;
-import Maps.Blockage;
-import Maps.MapFrame;
-import Maps.Pillars;
-import Maps.TestingMap;
+import Maps.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +13,7 @@ import java.io.IOException;
 
 public class MapSelectionMenu extends JPanel {
     //JFrame frame;
-    JButton backBtn, mapBtn1, mapBtn2, mapBtn3;
+    JButton backBtn, mapBtn1, mapBtn2, mapBtn3, mapBtn4;
 
     public MapSelectionMenu(/*JFrame frame*/){
         //this.frame = frame;
@@ -53,8 +50,9 @@ public class MapSelectionMenu extends JPanel {
         mapBtn3 = new JButton("Pillars");
         midPanel.add(mapBtn3);
 
-        JButton mapBtn4 = new JButton("Map 4");
+        mapBtn4 = new JButton("Center Core");
         midPanel.add(mapBtn4);
+
         JButton mapBtn5 = new JButton("Map 5");
         midPanel.add(mapBtn5);
         JButton mapBtn6 = new JButton("Map 6");
@@ -108,6 +106,19 @@ public class MapSelectionMenu extends JPanel {
                 MapFrame frame = new MapFrame();
                 Pillars pillars = new Pillars(frame);
                 frame.add(pillars);
+                frame.pack();
+
+                MainMenu.frame.dispose();
+            }
+        });
+
+        mapBtn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MultiPlayerInputHandling.getMap("CenterCore");
+                MapFrame frame = new MapFrame();
+                CenterCore centerCore = new CenterCore(frame,true);
+                frame.add(centerCore);
                 frame.pack();
 
                 MainMenu.frame.dispose();

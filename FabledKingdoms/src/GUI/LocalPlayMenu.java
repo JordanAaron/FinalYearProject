@@ -20,7 +20,7 @@ public class LocalPlayMenu extends JPanel {
 
     public void components(){
         JPanel topPanel = new JPanel();
-        topPanel.setBorder(BorderFactory.createLineBorder(Color.green));
+        //topPanel.setBorder(BorderFactory.createLineBorder(Color.green));
         topPanel.setLayout(new BorderLayout());
         add(topPanel,BorderLayout.NORTH);
 
@@ -28,7 +28,7 @@ public class LocalPlayMenu extends JPanel {
         topPanel.add(backBtn, BorderLayout.LINE_END);
 
         JPanel midPanel = new JPanel();
-        midPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
+        //midPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
         midPanel.setLayout(new GridLayout(3,0));
         add(midPanel,BorderLayout.CENTER);
 

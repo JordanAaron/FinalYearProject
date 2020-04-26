@@ -1,6 +1,5 @@
-package Client;
+package OnlineConnectivity.Client;
 
-import InputHandling.InputHandler;
 import Maps.TestingMap;
 
 import java.io.IOException;

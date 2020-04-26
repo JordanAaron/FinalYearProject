@@ -13,10 +13,31 @@ public class Blockage extends JPanel {
     private  MapFrame frame;
     //MapComponents
     public static Platform floor = new Platform(0,100-5,100,5, Color.gray);
-    public static Platform block = new Platform(31,50,38,5, Color.white); //height is 20
+    public static Platform block = new Platform(31,50,38,25, Color.white); //height is 20
     public static Platform leftPlatform = new Platform(8,60,15,5, Color.white);
     public static Platform rightPlatform = new Platform(77,60,15,5, Color.white);
     public static Platform topPlatform = new Platform(37,35,26,5, Color.white);
+
+    //Collision Checkers
+    public static Platform blockTop = new Platform(block.getLeftX()+2,block.getTopY(),block.w-3,1,Color.blue);
+    public static Platform blockBottom = new Platform(block.getLeftX()+2,block.getBottomY(),block.w-3,1,Color.blue);
+    public static Platform blockLeft = new Platform(block.getLeftX(),block.getTopY(),1,block.h,Color.blue);
+    public static Platform blockRight = new Platform(block.getRightX(),block.getTopY(),1,block.h,Color.blue);
+
+    public static Platform leftPlatformTop = new Platform(leftPlatform.getLeftX()+2,leftPlatform.getTopY(),leftPlatform.w-3,1,Color.blue);
+    public static Platform leftPlatformBottom = new Platform(leftPlatform.getLeftX()+2,leftPlatform.getBottomY(),leftPlatform.w-3,1,Color.blue);
+    public static Platform leftPlatformLeft = new Platform(leftPlatform.getLeftX(),leftPlatform.getTopY(),1,leftPlatform.h,Color.blue);
+    public static Platform leftPlatformRight = new Platform(leftPlatform.getRightX(),leftPlatform.getTopY(),1,leftPlatform.h,Color.blue);
+
+    public static Platform rightPlatformTop = new Platform(rightPlatform.getLeftX()+2,rightPlatform.getTopY(),rightPlatform.w-3,1,Color.blue);
+    public static Platform rightPlatformBottom = new Platform(rightPlatform.getLeftX()+2,rightPlatform.getBottomY(),rightPlatform.w-3,1,Color.blue);
+    public static Platform rightPlatformLeft = new Platform(rightPlatform.getLeftX(),rightPlatform.getTopY(),1,rightPlatform.h,Color.blue);
+    public static Platform rightPlatformRight = new Platform(rightPlatform.getRightX(),rightPlatform.getTopY(),1,rightPlatform.h,Color.blue);
+
+    public static Platform topPlatformTop = new Platform(topPlatform.getLeftX() + 2,topPlatform.getTopY(),topPlatform.w-3,1,Color.blue);
+    public static Platform topPlatformBottom = new Platform(topPlatform.getLeftX() + 2,topPlatform.getBottomY(),topPlatform.w-3,1,Color.blue);
+    public static Platform topPlatformLeft = new Platform(topPlatform.getLeftX(),topPlatform.getTopY(),1,topPlatform.h,Color.blue);
+    public static Platform topPlatformRight = new Platform(topPlatform.getRightX(),topPlatform.getTopY(),1,topPlatform.h,Color.blue);
 
     //Players
     public static GenericPlayer p1 = new GenericPlayer(85, 60-7, Color.pink, "Blockage");
@@ -35,6 +56,27 @@ public class Blockage extends JPanel {
         this.components.add(leftPlatform);
         this.components.add(rightPlatform);
         this.components.add(topPlatform);
+
+//        collision
+//        this.components.add(blockBottom);
+//        this.components.add(blockLeft);
+//        this.components.add(blockRight);
+//        this.components.add(blockTop);
+//
+//        this.components.add(leftPlatformTop);
+//        this.components.add(leftPlatformBottom);
+//        this.components.add(leftPlatformLeft);
+//        this.components.add(leftPlatformRight);
+//
+//        this.components.add(rightPlatformTop);
+//        this.components.add(rightPlatformBottom);
+//        this.components.add(rightPlatformLeft);
+//        this.components.add(rightPlatformRight);
+//
+//        this.components.add(topPlatformTop);
+//        this.components.add(topPlatformBottom);
+//        this.components.add(topPlatformLeft);
+//        this.components.add(topPlatformRight);
 
         this.players.add(p1);
         this.players.add(p2);
