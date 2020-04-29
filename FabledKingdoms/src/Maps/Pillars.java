@@ -1,10 +1,8 @@
 package Maps;
 
 import GameModes.Hardpoint.CapturePoint;
-import MapComponents.AngledPlatform;
+import MapComponents.*;
 import MapComponents.Component;
-import MapComponents.Platform;
-import MapComponents.Stairs;
 import PlayerCharacters.GenericPlayer;
 import PlayerCharacters.Player;
 
@@ -15,6 +13,8 @@ import java.util.ArrayList;
 public class Pillars extends JPanel {
     private MapFrame frame;
 
+    static InGameMenu menu = new InGameMenu(40,20,20,40);
+    public static boolean menuPaused = false;
 
     //Map Components
     public static Platform floor = new Platform(0,93,100,7, Color.gray);
@@ -41,7 +41,6 @@ public class Pillars extends JPanel {
     public static Platform middleRightPillarLeft = new Platform(middleRightPillar.getLeftX(),middleRightPillar.getTopY(),1,middleRightPillar.h,Color.blue);
     public static Platform middleRightPillarRight = new Platform(middleRightPillar.getRightX(),middleRightPillar.getTopY(),1,middleRightPillar.h,Color.blue);
 
-
     //Players
     public static GenericPlayer p1 = new GenericPlayer(85, 60-7, Color.pink, "Pillars");
     public static GenericPlayer p2 = new GenericPlayer(15, 60-7, Color.cyan, "Pillars");
@@ -59,21 +58,6 @@ public class Pillars extends JPanel {
         this.components.add(rightPillar);
         this.components.add(middleLeftPillar);
         this.components.add(middleRightPillar);
-
-//        collision plats
-//        this.components.add(leftPillarTop);
-//        this.components.add(leftPillarRight);
-//
-//        this.components.add(rightPillarTop);
-//        this.components.add(rightPillarLeft);
-//
-//        this.components.add(middleLeftPillarTop);
-//        this.components.add(middleLeftPillarLeft);
-//        this.components.add(middleLeftPillarRight);
-//
-//        this.components.add(middleRightPillarTop);
-//        this.components.add(middleRightPillarLeft);
-//        this.components.add(middleRightPillarRight);
 
         this.players.add(p1);
         this.players.add(p2);
@@ -103,10 +87,20 @@ public class Pillars extends JPanel {
             p.draw(g);
         }
 
-        for (CapturePoint cp: capturePoints){
-            cp.updateWidth(this.getWindowWidth());
-            cp.updateHeight(this.getWindowHeight());
-            cp.draw(g);
+//        for (CapturePoint cp: capturePoints){
+//            cp.updateWidth(this.getWindowWidth());
+//            cp.updateHeight(this.getWindowHeight());
+//            cp.draw(g);
+//        }
+
+        if (menuPaused){
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.pink);
+        } else {
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.black);
         }
 
         g.drawImage(frame.player,p1.xPos,p1.yPos,p1.w,p1.h,this);
@@ -114,11 +108,14 @@ public class Pillars extends JPanel {
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS() + "fps", 0, 10);
 
-//        try {
-//            runHardPoint();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+    }
+
+    public static void checkPause(boolean paused){
+        if (paused){
+            menuPaused = true;
+        } else{
+            menuPaused = false;
+        }
     }
 
     private void runHardPoint() throws InterruptedException {

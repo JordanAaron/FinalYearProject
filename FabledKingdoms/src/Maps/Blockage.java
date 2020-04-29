@@ -1,6 +1,7 @@
 package Maps;
 
 import MapComponents.Component;
+import MapComponents.InGameMenu;
 import MapComponents.Platform;
 import PlayerCharacters.GenericPlayer;
 import PlayerCharacters.Player;
@@ -11,6 +12,10 @@ import java.util.ArrayList;
 
 public class Blockage extends JPanel {
     private  MapFrame frame;
+
+    static InGameMenu menu = new InGameMenu(40,20,20,40);
+    public static boolean menuPaused = false;
+
     //MapComponents
     public static Platform floor = new Platform(0,100-5,100,5, Color.gray);
     public static Platform block = new Platform(31,50,38,25, Color.white); //height is 20
@@ -57,27 +62,6 @@ public class Blockage extends JPanel {
         this.components.add(rightPlatform);
         this.components.add(topPlatform);
 
-//        collision
-//        this.components.add(blockBottom);
-//        this.components.add(blockLeft);
-//        this.components.add(blockRight);
-//        this.components.add(blockTop);
-//
-//        this.components.add(leftPlatformTop);
-//        this.components.add(leftPlatformBottom);
-//        this.components.add(leftPlatformLeft);
-//        this.components.add(leftPlatformRight);
-//
-//        this.components.add(rightPlatformTop);
-//        this.components.add(rightPlatformBottom);
-//        this.components.add(rightPlatformLeft);
-//        this.components.add(rightPlatformRight);
-//
-//        this.components.add(topPlatformTop);
-//        this.components.add(topPlatformBottom);
-//        this.components.add(topPlatformLeft);
-//        this.components.add(topPlatformRight);
-
         this.players.add(p1);
         this.players.add(p2);
     }
@@ -105,7 +89,25 @@ public class Blockage extends JPanel {
             p.draw(g);
         }
 
+        if (menuPaused){
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.pink);
+        } else {
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.black);
+        }
+
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS() + "fps", 0, 10);
+    }
+
+    public static void checkPause(boolean paused){
+        if (paused){
+            menuPaused = true;
+        } else{
+            menuPaused = false;
+        }
     }
 }

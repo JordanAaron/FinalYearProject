@@ -1,5 +1,6 @@
 package Maps;
 
+import MapComponents.InGameMenu;
 import InputHandling.InputHandler;
 import MapComponents.Component;
 import MapComponents.Platform;
@@ -15,6 +16,10 @@ import java.util.Random;
 
 public class TestingMap extends JPanel {
     private MapFrame frame;
+
+    static InGameMenu menu = new InGameMenu(40,20,20,40);
+    public static boolean menuPaused = false;
+
     //Map Components
     public static Platform floor = new Platform(0,100 - 5,100,5,Color.gray);
     public static Platform leftPlatform = new Platform(20,60,15,5,Color.white);
@@ -36,7 +41,7 @@ public class TestingMap extends JPanel {
     public static GenericPlayer p2 = new GenericPlayer(27,60-7, Color.cyan, "TestingMap");
     public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
 
-    private ArrayList<MapComponents.Component> components = new ArrayList<>();
+    private static ArrayList<MapComponents.Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
 
 
@@ -44,6 +49,8 @@ public class TestingMap extends JPanel {
     public TestingMap(MapFrame frame){
         this.frame = frame;
         setBackground(Color.BLACK);
+
+        //InGameMenu inGameMenu = new InGameMenu(frame);
 
         this.components.add(floor);
         this.components.add(leftPlatform);
@@ -79,7 +86,7 @@ public class TestingMap extends JPanel {
         InputHandler.getPlayerID(playerID);
     }
 
-    private int getWindowWidth(){
+    public int getWindowWidth(){
         return this.frame.getContentPane().getSize().width;
     }
 
@@ -115,8 +122,27 @@ public class TestingMap extends JPanel {
             p.updateHeight(this.getWindowHeight());
             p.draw(g);
         }
+
+        if (menuPaused){
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.pink);
+        } else {
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.black);
+        }
+
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS()+ "fps",0,10);
+    }
+
+    public static void checkPause(boolean paused){
+        if (paused){
+            menuPaused = true;
+        } else{
+            menuPaused = false;
+        }
     }
 }
 

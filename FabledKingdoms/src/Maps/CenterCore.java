@@ -1,6 +1,7 @@
 package Maps;
 
 import MapComponents.Component;
+import MapComponents.InGameMenu;
 import MapComponents.Platform;
 import PlayerCharacters.GenericPlayer;
 import PlayerCharacters.Player;
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 
 public class CenterCore extends JPanel {
     private MapFrame frame;
+
+    static InGameMenu menu = new InGameMenu(40,20,20,40);
+    public static boolean menuPaused = false;
 
     //Map Components
     public static Platform floor = new Platform(0,100 - 5,100,5, Color.gray);
@@ -80,25 +84,6 @@ public class CenterCore extends JPanel {
         this.components.add(leftWall);
         this.components.add(rightWall);
 
-
-
-        //collisions
-
-//        this.components.add(LBaseTop);
-//        this.components.add(LBaseBottom);
-//        this.components.add(LBaseLeft);
-//        this.components.add(LBaseRight);
-
-//        this.components.add(LHeightTop);
-//        //this.components.add(LHeightBottom);
-//        this.components.add(LHeightLeft);
-//        this.components.add(LHeightRight);
-
-//        this.components.add(leftPlatformTop);
-//        this.components.add(leftPlatformBottom);
-//        this.components.add(leftPlatformLeft);
-//        this.components.add(leftPlatformRight);
-
         this.players.add(p1);
         this.players.add(p2);
     }
@@ -126,7 +111,26 @@ public class CenterCore extends JPanel {
             p.updateHeight(this.getWindowHeight());
             p.draw(g);
         }
+
+        if (menuPaused){
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.pink);
+        } else {
+            menu.updateWidth(this.getWindowWidth());
+            menu.updateHeight(this.getWindowHeight());
+            menu.draw(g, Color.black);
+        }
+
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS()+ "fps",0,10);
+    }
+
+    public static void checkPause(boolean paused){
+        if (paused){
+            menuPaused = true;
+        } else{
+            menuPaused = false;
+        }
     }
 }

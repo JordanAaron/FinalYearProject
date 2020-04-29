@@ -1,20 +1,29 @@
 package InputHandling;
 
-import Maps.Blockage;
-import Maps.CenterCore;
-import Maps.Pillars;
-import Maps.TestingMap;
+import GUI.InGameMenuComponents.MenuButtons;
+import GUI.MainMenu;
+import MapComponents.InGameMenu;
+import Maps.*;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class MultiPlayerInputHandling implements KeyListener {
+public class MultiPlayerInputHandling implements KeyListener, MouseListener {
 
     public static String mapSelection;
-
     public static void getMap(String map){
         mapSelection = map;
     }
+
+    private MapFrame mapFrame;
+    public void getMapFrame(MapFrame frame){
+        this.mapFrame = frame;
+    }
+
+    private InGameMenu inGameMenu;
+    public void getInGameMenu(InGameMenu inGameMenu){this.inGameMenu = inGameMenu;}
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -23,6 +32,16 @@ public class MultiPlayerInputHandling implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        if (mapFrame.paused){
+            return;
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            //System.out.println("esc pressed");
+            mapFrame.pauseGame();
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_UP){
             if (mapSelection.equals("TestingMap")){
                 TestingMap.p1.up();
@@ -237,5 +256,63 @@ public class MultiPlayerInputHandling implements KeyListener {
                 CenterCore.p2.stopHeavyAttack();
             }
         }
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        if (updatedX(e.getX()) > updatedX(this.inGameMenu.resumeButton.xPos) && updatedX(e.getX()) < (updatedX(this.inGameMenu.resumeButton.xPos)+updatedX(this.inGameMenu.resumeButton.width))){
+            if ((updatedY(e.getY()) -5) > updatedY(this.inGameMenu.resumeButton.yPos) && (updatedY(e.getY())-5) < (updatedY(this.inGameMenu.resumeButton.yPos)+ updatedX(this.inGameMenu.resumeButton.width))){
+                try {
+                    mapFrame.resumeGame();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        if (updatedX(e.getX()) > updatedX(this.inGameMenu.exitGame.xPos) && updatedX(e.getX()) < (updatedX(this.inGameMenu.exitGame.xPos)+updatedX(this.inGameMenu.exitGame.width))){
+            if ((updatedY(e.getY()) -5) > updatedY(this.inGameMenu.exitGame.yPos) && (updatedY(e.getY())-5) < (updatedY(this.inGameMenu.exitGame.yPos)+ updatedX(this.inGameMenu.exitGame.width))){
+                mapFrame.endThread();
+                MainMenu.frame.setPreferredSize(new Dimension(800,600));
+                MainMenu.frame.pack();
+                MainMenu.frame.add(new MainMenu());
+                MainMenu.frame.setVisible(true);
+                MainMenu.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            }
+        }
+    }
+
+    public int updatedX(int x){
+        int screenWidth = mapFrame.getContentPane().getSize().width;
+        return (int)(((double) x /screenWidth) * 100);
+    }
+
+    public int updatedY(int y){
+        int screenHeight = mapFrame.getContentPane().getSize().height;
+        return (int)(((double) y /screenHeight) * 100);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //System.out.println("on screen");
+        //System.out.println(MouseInfo.getPointerInfo().getLocation().x);
+        //MouseInfo.getPointerInfo().getLocation();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        System.out.println("off screen");
     }
 }

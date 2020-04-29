@@ -1,5 +1,6 @@
 package Maps;
 
+import MapComponents.InGameMenu;
 import OnlineConnectivity.Client.Client;
 import InputHandling.InputHandler;
 import InputHandling.MultiPlayerInputHandling;
@@ -13,17 +14,17 @@ import java.io.IOException;
 
 
 public class MapFrame extends JFrame implements Runnable {
-    private Thread thread;
-    private boolean running;
+    private static  Thread thread;
+    public static boolean running;
+    public boolean paused;
     private static int fps;
 
     private Client client;
 
     InputHandler input;
-    MultiPlayerInputHandling multiInput;
+    public static MultiPlayerInputHandling multiInput = new MultiPlayerInputHandling();
 
     private BufferedImage spriteSheet = null;
-
     protected BufferedImage player;
 
     public MapFrame(Client client) throws IOException {
@@ -47,9 +48,14 @@ public class MapFrame extends JFrame implements Runnable {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setFocusable(true);
 
+        paused = false;
+
         //add if statement to distinguish multi from single
         //addKeyListener(input = new InputHandler());
-        addKeyListener(multiInput = new MultiPlayerInputHandling());
+        addKeyListener(multiInput);
+        addMouseListener(multiInput);
+        multiInput.getMapFrame(this);
+
         startThread();
     }
 
@@ -78,7 +84,24 @@ public class MapFrame extends JFrame implements Runnable {
         }
     }
 
-    private void stop() {
+    public void pauseGame() {
+        if (paused){
+            return;
+        } else {
+            paused = true;
+            //System.out.println("game paused");
+        }
+    }
+
+    public void resumeGame() throws InterruptedException {
+        if (!paused){
+            return;
+        } else{
+            paused = false;
+        }
+    }
+
+    public void endThread() {
         if (!running) {
             return;
         } else {
@@ -89,6 +112,7 @@ public class MapFrame extends JFrame implements Runnable {
                 e.printStackTrace();
                 System.exit(0);
             }
+            this.dispose();
         }
     }
 
@@ -125,6 +149,9 @@ public class MapFrame extends JFrame implements Runnable {
                 frames += 2;
             }
 
+
+
+
             if (multiInput.mapSelection.equals("TestingMap")){
                 runTestingMap();
             } else if (multiInput.mapSelection.equals("Blockage")){
@@ -138,7 +165,7 @@ public class MapFrame extends JFrame implements Runnable {
             repaint();
 
             try {
-                thread.sleep(35);
+                thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -148,7 +175,8 @@ public class MapFrame extends JFrame implements Runnable {
     private void runTestingMap(){
         TestingMap.p1.movement();
         TestingMap.p2.movement();
-
+        TestingMap.checkPause(paused);
+        multiInput.getInGameMenu(TestingMap.menu);
         if (input.playerID == 1){
             client.playerMovement(TestingMap.p1.xPosPlayer, TestingMap.p1.yPosPlayer);
         } else if (input.playerID == 2){
@@ -159,16 +187,22 @@ public class MapFrame extends JFrame implements Runnable {
     private void runBlockage(){
         Blockage.p1.movement();
         Blockage.p2.movement();
+        Blockage.checkPause(paused);
+        multiInput.getInGameMenu(Blockage.menu);
     }
 
     private void runPillars(){
         Pillars.p1.movement();
         Pillars.p2.movement();
+        Pillars.checkPause(paused);
+        multiInput.getInGameMenu(Pillars.menu);
     }
 
     private void runCenterCore(){
         CenterCore.p1.movement();
         CenterCore.p2.movement();
+        CenterCore.checkPause(paused);
+        multiInput.getInGameMenu(CenterCore.menu);
     }
 
     public static String getFPS(){
