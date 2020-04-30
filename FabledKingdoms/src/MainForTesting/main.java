@@ -9,11 +9,11 @@ public class main {
         MapFrame frame = new MapFrame();
         TestingMap testingMap = new TestingMap(frame);
         Blockage blockage = new Blockage(frame);
-        Pillars pillars = new Pillars(frame);
+        //Pillars pillars = new Pillars(frame);
 
         MultiPlayerInputHandling.getMap("CenterCore");
-        CenterCore centerCore = new CenterCore(frame,true);
-        frame.add(centerCore);
+        //CenterCore centerCore = new CenterCore(frame,true);
+        //frame.add(centerCore);
         //frame.add(blockage);
         //frame.add(pillars);
         frame.pack();

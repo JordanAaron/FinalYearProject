@@ -1,9 +1,6 @@
 package PlayerCharacters;
 
-import Maps.Blockage;
-import Maps.CenterCore;
-import Maps.Pillars;
-import Maps.TestingMap;
+import Maps.*;
 
 import java.awt.*;
 
@@ -34,10 +31,13 @@ public class GenericPlayer extends Player {
 
     private String mapSelection;
 
-    public GenericPlayer(int x, int y, Color c, String map){
+    private MapFrame mapFrame;
+
+    public GenericPlayer(int x, int y, Color c, String map, MapFrame mapFrame){
         super(x,y);
         this.color = c;
         this.mapSelection = map;
+        this.mapFrame = mapFrame;
         //System.out.println(mapSelection);
 
         playerWidth = 4;
@@ -63,6 +63,7 @@ public class GenericPlayer extends Player {
 
     @Override
     public void draw(Graphics g) {
+        //Graphics gg = get
         xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
         yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
         w = (int)(((double) playerWidth /100) * this.getScreenWidth);
@@ -70,6 +71,8 @@ public class GenericPlayer extends Player {
 
         g.setColor(color);
         g.drawRect(xPos,yPos,w,h);
+
+        //g.drawImage(MapFrame.player, xPos, yPos, w, h, (img, infoflags, x, y, width, height) -> false);
     }
 
     public void updateWidth(int w){this.getScreenWidth = w;}
@@ -100,10 +103,8 @@ public class GenericPlayer extends Player {
     }
 
     public void onlineMovement(int x, int y){
-        //System.out.println(xPos + "," + yPos);
         xPosPlayer = x;
         yPosPlayer = y;
-        //System.out.println(xPos + yPos);
     }
 
     public void collisionDetection(){
@@ -455,6 +456,7 @@ public class GenericPlayer extends Player {
     }
 
     public void up(){
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,1,32,32);
         if(jumpCounter < 2){
             ySpeed = 6;
             jumpCounter++;
@@ -520,5 +522,11 @@ public class GenericPlayer extends Player {
             health = 0;
             //dead = true;
         }
+    }
+
+
+    public static int points;
+    public void capturePoints(int points){
+        this.points = points;
     }
 }

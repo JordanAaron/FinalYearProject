@@ -37,8 +37,8 @@ public class TestingMap extends JPanel {
     public static Platform rightPlatformRight = new Platform(rightPlatform.getRightX(),rightPlatform.getTopY(),1,rightPlatform.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 = new GenericPlayer(72,60-7, Color.pink, "TestingMap");
-    public static GenericPlayer p2 = new GenericPlayer(27,60-7, Color.cyan, "TestingMap");
+    public static GenericPlayer p1 = new GenericPlayer(72,60-7, Color.pink, "TestingMap", null);
+    public static GenericPlayer p2 = new GenericPlayer(27,60-7, Color.cyan, "TestingMap", null);
     public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
 
     private static ArrayList<MapComponents.Component> components = new ArrayList<>();
@@ -127,10 +127,6 @@ public class TestingMap extends JPanel {
             menu.updateWidth(this.getWindowWidth());
             menu.updateHeight(this.getWindowHeight());
             menu.draw(g, Color.pink);
-        } else {
-            menu.updateWidth(this.getWindowWidth());
-            menu.updateHeight(this.getWindowHeight());
-            menu.draw(g, Color.black);
         }
 
         g.setColor(Color.green);

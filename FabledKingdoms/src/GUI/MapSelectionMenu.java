@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MapSelectionMenu extends JPanel {
     //JFrame frame;
-    JButton backBtn, mapBtn1, mapBtn2, mapBtn3, mapBtn4;
+    JButton backBtn, mapBtn1, mapBtn2, mapBtn3, mapBtn4, mapBtn5, mapBtn6;
 
     public MapSelectionMenu(/*JFrame frame*/){
         //this.frame = frame;
@@ -53,9 +53,10 @@ public class MapSelectionMenu extends JPanel {
         mapBtn4 = new JButton("Center Core");
         midPanel.add(mapBtn4);
 
-        JButton mapBtn5 = new JButton("Map 5");
+        mapBtn5 = new JButton("CenterCore HardPoint");
         midPanel.add(mapBtn5);
-        JButton mapBtn6 = new JButton("Map 6");
+
+        mapBtn6 = new JButton("Pillars HardPoint");
         midPanel.add(mapBtn6);
 
         JPanel bottomPanel = new JPanel();
@@ -104,7 +105,7 @@ public class MapSelectionMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 MultiPlayerInputHandling.getMap("Pillars");
                 MapFrame frame = new MapFrame();
-                Pillars pillars = new Pillars(frame);
+                Pillars pillars = new Pillars(frame,"");
                 frame.add(pillars);
                 frame.pack();
 
@@ -117,8 +118,34 @@ public class MapSelectionMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 MultiPlayerInputHandling.getMap("CenterCore");
                 MapFrame frame = new MapFrame();
-                CenterCore centerCore = new CenterCore(frame,true);
+                CenterCore centerCore = new CenterCore(frame,"");
                 frame.add(centerCore);
+                frame.pack();
+
+                MainMenu.frame.dispose();
+            }
+        });
+
+        mapBtn5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MultiPlayerInputHandling.getMap("CenterCore");
+                MapFrame frame = new MapFrame();
+                CenterCore centerCore = new CenterCore(frame,"HardPoint");
+                frame.add(centerCore);
+                frame.pack();
+
+                MainMenu.frame.dispose();
+            }
+        });
+
+        mapBtn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MultiPlayerInputHandling.getMap("Pillars");
+                MapFrame frame = new MapFrame();
+                Pillars pillars = new Pillars(frame,"HardPoint");
+                frame.add(pillars);
                 frame.pack();
 
                 MainMenu.frame.dispose();

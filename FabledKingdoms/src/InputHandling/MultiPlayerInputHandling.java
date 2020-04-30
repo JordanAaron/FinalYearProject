@@ -1,7 +1,7 @@
 package InputHandling;
 
-import GUI.InGameMenuComponents.MenuButtons;
 import GUI.MainMenu;
+import GameModes.Hardpoint.HardPointMode;
 import MapComponents.InGameMenu;
 import Maps.*;
 
@@ -24,6 +24,9 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
     private InGameMenu inGameMenu;
     public void getInGameMenu(InGameMenu inGameMenu){this.inGameMenu = inGameMenu;}
 
+    private HardPointMode hardPointMode;
+    public void getHardPointMode(HardPointMode hardPointMode){this.hardPointMode = hardPointMode;}
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -40,6 +43,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
             //System.out.println("esc pressed");
             mapFrame.pauseGame();
+            //hardPointMode.pause();
         }
 
         if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -52,6 +56,9 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
             } else if (mapSelection.equals("CenterCore")){
                 CenterCore.p1.up();
             }
+
+            //mapFrame.player = mapFrame.ss.getImage(2,1,32,32);
+            //mapFrame.upArrow = true;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
@@ -68,6 +75,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.left();
                 CenterCore.p1.startMoving();
             }
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,2,32,32);
 
         }
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
@@ -85,6 +93,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.startMoving();
             }
 
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,2,32,32);
         }
         if(e.getKeyCode() == KeyEvent.VK_P){
             if (mapSelection.equals("TestingMap")){
@@ -97,6 +106,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.lightAttack();
             }
             System.out.println("Light Attack!");
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,3,32,32);
         }
         if(e.getKeyCode() == KeyEvent.VK_O){
             if (mapSelection.equals("TestingMap")){
@@ -185,6 +195,12 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+            //mapFrame.upArrow = true;
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT){
             if (mapSelection.equals("TestingMap")){
                 TestingMap.p1.stopMoving();
@@ -195,6 +211,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
             } else if (mapSelection.equals("CenterCore")){
                 CenterCore.p1.stopMoving();
             }
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_G){
@@ -243,6 +260,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
             } else if (mapSelection.equals("CenterCore")){
                 CenterCore.p2.stopLightAttack();
             }
+            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_O){
@@ -275,6 +293,15 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
         if (updatedX(e.getX()) > updatedX(this.inGameMenu.exitGame.xPos) && updatedX(e.getX()) < (updatedX(this.inGameMenu.exitGame.xPos)+updatedX(this.inGameMenu.exitGame.width))){
             if ((updatedY(e.getY()) -5) > updatedY(this.inGameMenu.exitGame.yPos) && (updatedY(e.getY())-5) < (updatedY(this.inGameMenu.exitGame.yPos)+ updatedX(this.inGameMenu.exitGame.width))){
                 mapFrame.endThread();
+                if (hardPointMode.running){
+                    try {
+                        hardPointMode.stopThread();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+
                 MainMenu.frame.setPreferredSize(new Dimension(800,600));
                 MainMenu.frame.pack();
                 MainMenu.frame.add(new MainMenu());

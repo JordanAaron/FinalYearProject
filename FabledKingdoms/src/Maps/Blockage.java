@@ -45,8 +45,8 @@ public class Blockage extends JPanel {
     public static Platform topPlatformRight = new Platform(topPlatform.getRightX(),topPlatform.getTopY(),1,topPlatform.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 = new GenericPlayer(85, 60-7, Color.pink, "Blockage");
-    public static GenericPlayer p2 = new GenericPlayer(15, 60-7, Color.cyan, "Blockage");
+    public static GenericPlayer p1 = new GenericPlayer(85, 60-7, Color.pink, "Blockage", null);
+    public static GenericPlayer p2 = new GenericPlayer(15, 60-7, Color.cyan, "Blockage", null);
 
 
     private ArrayList<MapComponents.Component> components = new ArrayList<>();
@@ -93,10 +93,6 @@ public class Blockage extends JPanel {
             menu.updateWidth(this.getWindowWidth());
             menu.updateHeight(this.getWindowHeight());
             menu.draw(g, Color.pink);
-        } else {
-            menu.updateWidth(this.getWindowWidth());
-            menu.updateHeight(this.getWindowHeight());
-            menu.draw(g, Color.black);
         }
 
         g.setColor(Color.green);

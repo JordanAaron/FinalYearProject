@@ -8,17 +8,17 @@ public class CapturePoint {
 
     private int screenWidth, screenHeight;
 
-    private boolean active;
+    public boolean active;
 
-    public CapturePoint(int x, int y){
+    public CapturePoint(int x, int y, int width){
         this.x = x;
         this.y = y;
-
-        width = 4;
-        height = 1;
+        this.width = width;
+        height = 2;
 
         active = false;
     }
+
 
     public void draw(Graphics g, Color c) {
         int xPos = (int)(((double) this.x /100) * this.screenWidth);
@@ -39,26 +39,17 @@ public class CapturePoint {
     }
 
     public void setActive(boolean on){
-        if (on){
-            this.active = true;
-        } else {
-            this.active = false;
-        }
+        this.active = on;
     }
 
-//    private long lastTrueTime;
-//    private boolean timedBoolean(){
-//        long now = System.currentTimeMillis();
-//        if (setActive()){
-//            lastTrueTime = now;
-//            active = true;
-//        }
-//
-//        if (lastTrueTime + 5000 < now){
-//            active = false;
-//        }
-//        return true;
-//    }
+    public boolean playerOnPoint(int leftX, int rightX, int bottomY){
+        if (leftX > this.x && rightX <= (this.x + this.width)){
+            if (bottomY >= this.y){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 

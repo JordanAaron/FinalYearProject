@@ -1,6 +1,6 @@
 package Maps;
 
-import MapComponents.InGameMenu;
+import GameModes.Hardpoint.HardPointMode;
 import OnlineConnectivity.Client.Client;
 import InputHandling.InputHandler;
 import InputHandling.MultiPlayerInputHandling;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 public class MapFrame extends JFrame implements Runnable {
-    private static  Thread thread;
+    private static Thread thread;
     public static boolean running;
     public boolean paused;
     private static int fps;
@@ -25,7 +25,15 @@ public class MapFrame extends JFrame implements Runnable {
     public static MultiPlayerInputHandling multiInput = new MultiPlayerInputHandling();
 
     private BufferedImage spriteSheet = null;
-    protected BufferedImage player;
+    private BufferedImage spriteSheet_TrainingPlayer = null;
+    public static BufferedImage genPlayer, trainingPlayer;
+    public SpriteSheet genericPlayerSS, trainingPlayerSS;
+
+    private HardPointMode hardPointMode;
+    public void getHardPointMode(HardPointMode hardPointMode){this.hardPointMode = hardPointMode;}
+
+
+    public boolean upArrow, rightArrow = false, leftArrow = false;
 
     public MapFrame(Client client) throws IOException {
         this.client = client;
@@ -56,21 +64,22 @@ public class MapFrame extends JFrame implements Runnable {
         addMouseListener(multiInput);
         multiInput.getMapFrame(this);
 
+        upArrow = false;
+
         startThread();
     }
 
     public void init(){
         BufferedImageLoader loader = new BufferedImageLoader();
         try {
-            spriteSheet = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\genPlayerSpriteSheet.png");
+            spriteSheet = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet1.png");
+            spriteSheet_TrainingPlayer = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet_TrainingPlayer.png");
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        SpriteSheet ss = new SpriteSheet(spriteSheet);
-
-        player = ss.getImage(1,1,32,32);
-
+        genericPlayerSS = new SpriteSheet(spriteSheet);
+        trainingPlayerSS = new SpriteSheet(spriteSheet_TrainingPlayer);
     }
 
     public void startThread() {
@@ -89,7 +98,9 @@ public class MapFrame extends JFrame implements Runnable {
             return;
         } else {
             paused = true;
-            //System.out.println("game paused");
+            if(HardPointMode.running){
+                hardPointMode.paused = true;
+            }
         }
     }
 
@@ -98,6 +109,9 @@ public class MapFrame extends JFrame implements Runnable {
             return;
         } else{
             paused = false;
+            if (HardPointMode.running){
+                hardPointMode.paused = false;
+            }
         }
     }
 
@@ -121,6 +135,10 @@ public class MapFrame extends JFrame implements Runnable {
     @Override
     public void run() {
         init();
+        genPlayer = genericPlayerSS.getImage(1,1,32,32);
+        trainingPlayer = trainingPlayerSS.getImage(1,1,32,32);
+
+
         int frames = 0;
         double unprocessedSeconds = 0;
         long previousTime = System.nanoTime();
@@ -150,7 +168,9 @@ public class MapFrame extends JFrame implements Runnable {
             }
 
 
-
+            if (upArrow){
+                System.out.println("up arrow pressed");
+            }
 
             if (multiInput.mapSelection.equals("TestingMap")){
                 runTestingMap();
@@ -206,6 +226,6 @@ public class MapFrame extends JFrame implements Runnable {
     }
 
     public static String getFPS(){
-        return  Integer.toString(fps);
+        return Integer.toString(fps);
     }
 }

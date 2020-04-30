@@ -1,5 +1,7 @@
 package Maps;
 
+import GameModes.Hardpoint.CapturePoint;
+import GameModes.Hardpoint.HardPointMode;
 import MapComponents.Component;
 import MapComponents.InGameMenu;
 import MapComponents.Platform;
@@ -15,6 +17,12 @@ public class CenterCore extends JPanel {
 
     static InGameMenu menu = new InGameMenu(40,20,20,40);
     public static boolean menuPaused = false;
+
+    public static CapturePoint middleCP = new CapturePoint(45,94,10);
+    public static CapturePoint LBaseCP = new CapturePoint(28,59,16);
+    public static CapturePoint rightSpawnCP = new CapturePoint(85,94,15);
+    public static CapturePoint leftSpawnCP = new CapturePoint(0,94,15);
+    public static CapturePoint JBaseCP = new CapturePoint(56,59,16);
 
     //Map Components
     public static Platform floor = new Platform(0,100 - 5,100,5, Color.gray);
@@ -65,13 +73,14 @@ public class CenterCore extends JPanel {
     public static Platform rightWallRight = new Platform(rightWall.getRightX(),rightWall.getTopY(),1,rightWall.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 = new GenericPlayer(90,60, Color.pink, "CenterCore");
-    public static GenericPlayer p2 = new GenericPlayer(6,60, Color.cyan, "CenterCore");
+    public static GenericPlayer p1 = new GenericPlayer(90,60, Color.pink, "CenterCore", null);
+    public static GenericPlayer p2 = new GenericPlayer(6,60, Color.cyan, "CenterCore", null);
 
     private ArrayList<Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
+    public static ArrayList<CapturePoint> capturePoints = new ArrayList<>();
 
-    public CenterCore(MapFrame frame, Boolean offline){
+    public CenterCore(MapFrame frame, String gameMode){
         this.frame = frame;
         setBackground(Color.black);
 
@@ -86,6 +95,16 @@ public class CenterCore extends JPanel {
 
         this.players.add(p1);
         this.players.add(p2);
+
+        new HardPointMode("CenterCore");
+
+        if (gameMode.equals("HardPoint")){
+            capturePoints.add(middleCP);
+            capturePoints.add(LBaseCP);
+            capturePoints.add(rightSpawnCP);
+            capturePoints.add(leftSpawnCP);
+            capturePoints.add(JBaseCP);
+        }
     }
 
     private int getWindowWidth(){
@@ -116,10 +135,14 @@ public class CenterCore extends JPanel {
             menu.updateWidth(this.getWindowWidth());
             menu.updateHeight(this.getWindowHeight());
             menu.draw(g, Color.pink);
-        } else {
-            menu.updateWidth(this.getWindowWidth());
-            menu.updateHeight(this.getWindowHeight());
-            menu.draw(g, Color.black);
+        }
+
+        for (CapturePoint cp : capturePoints){
+            if (cp.active){
+                cp.updateWidth(this.getWindowWidth());
+                cp.updateHeight(this.getWindowHeight());
+                cp.draw(g,Color.yellow);
+            }
         }
 
         g.setColor(Color.green);
