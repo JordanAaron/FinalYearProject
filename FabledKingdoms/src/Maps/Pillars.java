@@ -6,6 +6,7 @@ import MapComponents.*;
 import MapComponents.Component;
 import PlayerCharacters.GenericPlayer;
 import PlayerCharacters.Player;
+import PlayerCharacters.TrainingPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,8 +51,9 @@ public class Pillars extends JPanel {
     public static Platform middleRightPillarRight = new Platform(middleRightPillar.getRightX(),middleRightPillar.getTopY(),1,middleRightPillar.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 /*= new GenericPlayer(85, 60-7, Color.pink, "Pillars",frame)*/;
-    public static GenericPlayer p2;
+    public static GenericPlayer p1;
+    //public static GenericPlayer p2;
+    public static TrainingPlayer p2;
 
     public ArrayList<Component> components = new ArrayList<>();
     public static ArrayList<CapturePoint> capturePoints = new ArrayList<>();
@@ -62,7 +64,8 @@ public class Pillars extends JPanel {
         setBackground(Color.BLACK);
 
         p1 = new GenericPlayer(85, 60-7, Color.pink, "Pillars",frame);
-        p2 = new GenericPlayer(15, 60-7, Color.cyan, "Pillars",frame);
+        //p2 = new GenericPlayer(15, 60-7, Color.cyan, "Pillars",frame);
+        p2 = new TrainingPlayer(15,60-7,Color.cyan, frame);
 
         this.components.add(floor);
         this.components.add(leftPillar);
@@ -140,6 +143,7 @@ public class Pillars extends JPanel {
         //System.out.println(addPoint.getCount());
 
         g.drawImage(frame.genPlayer, p1.xPos, p1.yPos, p1.w, p1.h,this);
+        g.drawImage(frame.trainingPlayer,p2.xPos,p2.yPos,p2.w,p2.h,this);
 
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS() + "fps", 0, 10);

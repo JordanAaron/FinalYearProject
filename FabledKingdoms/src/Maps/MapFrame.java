@@ -24,10 +24,14 @@ public class MapFrame extends JFrame implements Runnable {
     InputHandler input;
     public static MultiPlayerInputHandling multiInput = new MultiPlayerInputHandling();
 
-    private BufferedImage spriteSheet = null;
+    private BufferedImage spriteSheet_Gen = null;
     private BufferedImage spriteSheet_TrainingPlayer = null;
-    public static BufferedImage genPlayer, trainingPlayer;
-    public SpriteSheet genericPlayerSS, trainingPlayerSS;
+    private BufferedImage spriteSheet_Orange = null;
+    private BufferedImage spriteSheet_GreenBlocBoy = null;
+
+
+    public static BufferedImage genPlayer, trainingPlayer,orange,greenBlocBoy;
+    public SpriteSheet genericPlayerSS, trainingPlayerSS,orangeSS,greenBlocBoySS;
 
     private HardPointMode hardPointMode;
     public void getHardPointMode(HardPointMode hardPointMode){this.hardPointMode = hardPointMode;}
@@ -72,14 +76,18 @@ public class MapFrame extends JFrame implements Runnable {
     public void init(){
         BufferedImageLoader loader = new BufferedImageLoader();
         try {
-            spriteSheet = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet1.png");
+            spriteSheet_Gen = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet_Gen.png");
             spriteSheet_TrainingPlayer = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet_TrainingPlayer.png");
+            spriteSheet_Orange = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet_Orange.png");
+            spriteSheet_GreenBlocBoy = loader.loadImage("FabledKingdoms\\Res\\SpriteSheets\\SpriteSheet_GreenBlocBoy.png");
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        genericPlayerSS = new SpriteSheet(spriteSheet);
+        genericPlayerSS = new SpriteSheet(spriteSheet_Gen);
         trainingPlayerSS = new SpriteSheet(spriteSheet_TrainingPlayer);
+        orangeSS = new SpriteSheet(spriteSheet_Orange);
+        greenBlocBoySS = new SpriteSheet(spriteSheet_GreenBlocBoy);
     }
 
     public void startThread() {
@@ -136,7 +144,9 @@ public class MapFrame extends JFrame implements Runnable {
     public void run() {
         init();
         genPlayer = genericPlayerSS.getImage(1,1,32,32);
-        trainingPlayer = trainingPlayerSS.getImage(1,1,32,32);
+        trainingPlayer = trainingPlayerSS.getImage(5,1,32,32);
+        orange = orangeSS.getImage(1,1,32,32);
+        greenBlocBoy = greenBlocBoySS.getImage(1,1,32,32);
 
 
         int frames = 0;

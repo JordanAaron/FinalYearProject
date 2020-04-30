@@ -39,7 +39,7 @@ public class TestingMap extends JPanel {
     //Players
     public static GenericPlayer p1 = new GenericPlayer(72,60-7, Color.pink, "TestingMap", null);
     public static GenericPlayer p2 = new GenericPlayer(27,60-7, Color.cyan, "TestingMap", null);
-    public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
+    //public static TrainingPlayer trainingPlayer = new TrainingPlayer(57,100-5-7,Color.red);
 
     private static ArrayList<MapComponents.Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();

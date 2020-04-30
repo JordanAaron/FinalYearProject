@@ -158,13 +158,13 @@ public class GenericPlayer extends Player {
             xPosPlayer = (TestingMap.rightPlatformRight.xPosMapComp);
         }
 
-        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
-            System.out.println("light attack collision");
-            damageImpact(lightAttack);
-        } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
-            System.out.println("heavy attack collision");
-            damageImpact(heavyAttack);
-        }
+//        if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && lightAttacking){
+//            System.out.println("light attack collision");
+//            damageImpact(lightAttack);
+//        } else if (TestingMap.trainingPlayer.playerColliding(xCheck,yCheck) && heavyAttacking){
+//            System.out.println("heavy attack collision");
+//            damageImpact(heavyAttack);
+//        }
 
         if (TestingMap.p2.playerColliding(xCheck,yCheck) && lightAttacking){
             System.out.println("light attack collision");
@@ -464,10 +464,12 @@ public class GenericPlayer extends Player {
     }
 
     public void left(){
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,2,32,32);
         xSpeed = -1;
     }
 
     public void right(){
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,2,32,32);
         xSpeed = 1;
     }
 
@@ -476,6 +478,7 @@ public class GenericPlayer extends Player {
     }
 
     public void stopMoving(){
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
         canMove = false;
     }
 
@@ -497,11 +500,13 @@ public class GenericPlayer extends Player {
     }
 
     public void lightAttack(){
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,3,32,32);
         lightAttacking = true;
     }
 
     public void stopLightAttack(){
         //where you implement the hit delay
+        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
         lightAttacking = false;
     }
 

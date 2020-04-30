@@ -75,9 +75,9 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.left();
                 CenterCore.p1.startMoving();
             }
-            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,2,32,32);
-
+//            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,2,32,32);
         }
+
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             if (mapSelection.equals("TestingMap")){
                 TestingMap.p1.right();
@@ -93,7 +93,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.startMoving();
             }
 
-            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,2,32,32);
+//            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,2,32,32);
         }
         if(e.getKeyCode() == KeyEvent.VK_P){
             if (mapSelection.equals("TestingMap")){
@@ -106,7 +106,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
                 CenterCore.p1.lightAttack();
             }
             System.out.println("Light Attack!");
-            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,3,32,32);
+//            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,3,32,32);
         }
         if(e.getKeyCode() == KeyEvent.VK_O){
             if (mapSelection.equals("TestingMap")){
@@ -198,8 +198,16 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
         if(e.getKeyCode() == KeyEvent.VK_UP){
 
             mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+            mapFrame.trainingPlayer = mapFrame.trainingPlayerSS.getImage(5,1,32,32);
             //mapFrame.upArrow = true;
         }
+
+        if(e.getKeyCode() == KeyEvent.VK_W){
+
+            mapFrame.trainingPlayer = mapFrame.trainingPlayerSS.getImage(5,1,32,32);
+            //mapFrame.upArrow = true;
+        }
+
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT){
             if (mapSelection.equals("TestingMap")){
@@ -211,7 +219,8 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
             } else if (mapSelection.equals("CenterCore")){
                 CenterCore.p1.stopMoving();
             }
-            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+
+
         }
 
         if(e.getKeyCode() == KeyEvent.VK_G){
@@ -260,7 +269,7 @@ public class MultiPlayerInputHandling implements KeyListener, MouseListener {
             } else if (mapSelection.equals("CenterCore")){
                 CenterCore.p2.stopLightAttack();
             }
-            mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+
         }
 
         if(e.getKeyCode() == KeyEvent.VK_O){
