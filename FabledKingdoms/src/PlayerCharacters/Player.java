@@ -1,5 +1,7 @@
 package PlayerCharacters;
 
+import Maps.MapFrame;
+
 import java.awt.*;
 
 public abstract class Player {
@@ -10,6 +12,7 @@ public abstract class Player {
         this.yPosPlayer = y;
 
     }
+
 
     public abstract void draw(Graphics g);
 

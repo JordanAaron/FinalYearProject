@@ -54,7 +54,8 @@ public class HardPointMode implements Runnable {
             thread.start();
             running = true;
             if (map.equals("Pillars")){
-                Pillars.addPoint.startThread();
+                //Pillars.addPoint.startThread();
+                Pillars.points.start();
             } else if (map.equals("CenterCore")){
                 //CenterCore.points.start();
             }

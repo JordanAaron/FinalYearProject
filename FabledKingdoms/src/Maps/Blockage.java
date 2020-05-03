@@ -1,10 +1,10 @@
 package Maps;
 
+import InputHandling.MultiPlayerInputHandling;
 import MapComponents.Component;
 import MapComponents.InGameMenu;
 import MapComponents.Platform;
-import PlayerCharacters.GenericPlayer;
-import PlayerCharacters.Player;
+import PlayerCharacters.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,16 +45,28 @@ public class Blockage extends JPanel {
     public static Platform topPlatformRight = new Platform(topPlatform.getRightX(),topPlatform.getTopY(),1,topPlatform.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 = new GenericPlayer(85, 60-7, Color.pink, "Blockage", null);
-    public static GenericPlayer p2 = new GenericPlayer(15, 60-7, Color.cyan, "Blockage", null);
+    public static GenericPlayer gen;
+    public static TrainingPlayer purp;
+    public static Orange orange;
+    public static GreenBlocBoy gbb;
 
 
     private ArrayList<MapComponents.Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
 
+    int p1SpawnX, p1SpawnY;
+    int p2SpawnX, p2SpawnY;
+
     public Blockage(MapFrame frame){
         this.frame = frame;
         setBackground(Color.BLACK);
+
+
+
+//        gen = new GenericPlayer(85, 60-7, Color.pink, "Blockage", frame);
+//        purp = new TrainingPlayer(15, 60-7, Color.cyan, "Blockage", frame);
+//        orange = new Orange(85,60-7,Color.orange,"Blockage", frame);
+//        gbb = new GreenBlocBoy(15, 60-7, Color.green, "Blockage", frame);
 
         this.components.add(floor);
         this.components.add(block);
@@ -62,9 +74,39 @@ public class Blockage extends JPanel {
         this.components.add(rightPlatform);
         this.components.add(topPlatform);
 
-        this.players.add(p1);
-        this.players.add(p2);
+        if (MultiPlayerInputHandling.characters.get(0).equals("Gen")){
+            gen = new GenericPlayer(85, 60-7, Color.pink, "Blockage", frame);
+            this.players.add(gen);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Gen")){
+            gen = new GenericPlayer(15, 60-7, Color.pink, "Blockage", frame);
+            this.players.add(gen);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Purp")){
+            purp = new TrainingPlayer(85, 60-7, Color.cyan, "Blockage", frame);
+            this.players.add(purp);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Purp")){
+            purp = new TrainingPlayer(15, 60-7, Color.cyan, "Blockage", frame);
+            this.players.add(purp);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Orange")){
+            orange = new Orange(85,60-7,Color.orange,"Blockage", frame);
+            this.players.add(orange);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Orange")){
+            orange = new Orange(15,60-7,Color.orange,"Blockage", frame);
+            this.players.add(orange);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(85, 60-7, Color.green, "Blockage", frame);
+            this.players.add(gbb);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(15, 60-7, Color.green, "Blockage", frame);
+            this.players.add(gbb);
+        }
     }
+
 
     private int getWindowWidth(){
         return this.frame.getContentPane().getSize().width;
@@ -93,6 +135,22 @@ public class Blockage extends JPanel {
             menu.updateWidth(this.getWindowWidth());
             menu.updateHeight(this.getWindowHeight());
             menu.draw(g, Color.pink);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            g.drawImage(frame.genPlayer, gen.xPos,gen.yPos,gen.w,gen.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            g.drawImage(frame.purp, purp.xPos,purp.yPos,purp.w,purp.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            g.drawImage(frame.orange, orange.xPos,orange.yPos,orange.w,orange.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            g.drawImage(frame.greenBlocBoy, gbb.xPos,gbb.yPos,gbb.w,gbb.h,this);
         }
 
         g.setColor(Color.green);

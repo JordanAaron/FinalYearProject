@@ -1,5 +1,7 @@
 package GameModes.Hardpoint;
 
+import Maps.Pillars;
+
 import java.awt.*;
 
 public class CapturePoint {
@@ -45,6 +47,7 @@ public class CapturePoint {
     public boolean playerOnPoint(int leftX, int rightX, int bottomY){
         if (leftX > this.x && rightX <= (this.x + this.width)){
             if (bottomY >= this.y){
+                Pillars.addPoint.onPointP1 = true;
                 return true;
             }
         }

@@ -2,11 +2,11 @@ package Maps;
 
 import GameModes.Hardpoint.CapturePoint;
 import GameModes.Hardpoint.HardPointMode;
+import InputHandling.MultiPlayerInputHandling;
 import MapComponents.Component;
 import MapComponents.InGameMenu;
 import MapComponents.Platform;
-import PlayerCharacters.GenericPlayer;
-import PlayerCharacters.Player;
+import PlayerCharacters.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,12 +73,60 @@ public class CenterCore extends JPanel {
     public static Platform rightWallRight = new Platform(rightWall.getRightX(),rightWall.getTopY(),1,rightWall.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1 = new GenericPlayer(90,60, Color.pink, "CenterCore", null);
-    public static GenericPlayer p2 = new GenericPlayer(6,60, Color.cyan, "CenterCore", null);
+    public static GenericPlayer gen;
+    public static TrainingPlayer purp;
+    public static Orange orange;
+    public static GreenBlocBoy gbb;
 
     private ArrayList<Component> components = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
     public static ArrayList<CapturePoint> capturePoints = new ArrayList<>();
+
+    public CenterCore(MapFrame frame){
+        this.frame = frame;
+        setBackground(Color.black);
+
+        this.components.add(floor);
+        this.components.add(middlePlatform);
+        this.components.add(LBase);
+        this.components.add(LHeight);
+        this.components.add(JBase);
+        this.components.add(JHeight);
+        this.components.add(leftWall);
+        this.components.add(rightWall);
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Gen")){
+            gen = new GenericPlayer(90, 60, Color.pink, "CenterCore", frame);
+            this.players.add(gen);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Gen")){
+            gen = new GenericPlayer(6, 60, Color.pink, "CenterCore", frame);
+            this.players.add(gen);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Purp")){
+            purp = new TrainingPlayer(90, 60, Color.cyan, "CenterCore", frame);
+            this.players.add(purp);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Purp")){
+            purp = new TrainingPlayer(6, 60, Color.cyan, "CenterCore", frame);
+            this.players.add(purp);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Orange")){
+            orange = new Orange(90, 60,Color.orange,"CenterCore", frame);
+            this.players.add(orange);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Orange")){
+            orange = new Orange(6, 60, Color.orange,"CenterCore", frame);
+            this.players.add(orange);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(90, 60, Color.green, "CenterCore", frame);
+            this.players.add(gbb);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(6, 60, Color.green, "CenterCore", frame);
+            this.players.add(gbb);
+        }
+    }
 
     public CenterCore(MapFrame frame, String gameMode){
         this.frame = frame;
@@ -93,8 +141,37 @@ public class CenterCore extends JPanel {
         this.components.add(leftWall);
         this.components.add(rightWall);
 
-        this.players.add(p1);
-        this.players.add(p2);
+        if (MultiPlayerInputHandling.characters.get(0).equals("Gen")){
+            gen = new GenericPlayer(90, 60, Color.pink, "CenterCore", frame);
+            this.players.add(gen);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Gen")){
+            gen = new GenericPlayer(6, 60, Color.pink, "CenterCore", frame);
+            this.players.add(gen);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Purp")){
+            purp = new TrainingPlayer(90, 60, Color.cyan, "CenterCore", frame);
+            this.players.add(purp);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Purp")){
+            purp = new TrainingPlayer(6, 60, Color.cyan, "CenterCore", frame);
+            this.players.add(purp);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Orange")){
+            orange = new Orange(90, 60,Color.orange,"CenterCore", frame);
+            this.players.add(orange);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Orange")){
+            orange = new Orange(6, 60, Color.orange,"CenterCore", frame);
+            this.players.add(orange);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(90, 60, Color.green, "CenterCore", frame);
+            this.players.add(gbb);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(6, 60, Color.green, "CenterCore", frame);
+            this.players.add(gbb);
+        }
 
         new HardPointMode("CenterCore");
 
@@ -137,18 +214,51 @@ public class CenterCore extends JPanel {
             menu.draw(g, Color.pink);
         }
 
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            g.drawImage(frame.genPlayer, gen.xPos,gen.yPos,gen.w,gen.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            g.drawImage(frame.purp, purp.xPos,purp.yPos,purp.w,purp.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            g.drawImage(frame.orange, orange.xPos,orange.yPos,orange.w,orange.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            g.drawImage(frame.greenBlocBoy, gbb.xPos,gbb.yPos,gbb.w,gbb.h,this);
+        }
+
         for (CapturePoint cp : capturePoints){
             if (cp.active){
                 cp.updateWidth(this.getWindowWidth());
                 cp.updateHeight(this.getWindowHeight());
                 cp.draw(g,Color.yellow);
+
             }
+//            if (cp.playerOnPoint(gen.getLeftX(), gen.getRightX(), gen.getBottomY())){
+//                Pillars.addPoint.onPoint = true;
+//                gen.capturePoints(Pillars.addPoint.getCount());
+//            } else {
+//                Pillars.addPoint.onPoint = false;
+//            }
         }
 
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS()+ "fps",0,10);
+
+//        g.setColor(Color.pink);
+//        g.drawString("Player 1 points: " + gen.points,updateX(80),updateY(10));
     }
 
+
+    private int updateX(int x){
+        return (int)(((double) x/100) * getWindowWidth());
+    }
+    private int updateY(int y){
+        return (int)(((double) y/100) * getWindowHeight());
+    }
     public static void checkPause(boolean paused){
         if (paused){
             menuPaused = true;

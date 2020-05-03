@@ -4,7 +4,7 @@ import Maps.*;
 
 import java.awt.*;
 
-public class GenericPlayer extends Player {
+public class GreenBlocBoy extends Player {
     public int xPos, yPos, w, h;
     private Color color;
 
@@ -23,18 +23,17 @@ public class GenericPlayer extends Player {
 
     private int lightAttack;
     private int heavyAttack;
-    private int hitDelay;
     private boolean lightAttacking;
     private boolean heavyAttacking;
 
     private String mapSelection;
     private MapFrame mapFrame;
 
-    public GenericPlayer(int x, int y, Color c, String map, MapFrame mapFrame){
-        super(x,y);
+    public GreenBlocBoy(int x, int y, Color c, String map, MapFrame frame) {
+        super(x, y);
         this.color = c;
         this.mapSelection = map;
-        this.mapFrame = mapFrame;
+        this.mapFrame = frame;
 
         playerWidth = 4;
         playerHeight = 7;
@@ -51,6 +50,7 @@ public class GenericPlayer extends Player {
 
         dead = false;
 
+
         lightAttack = 4;
         heavyAttack = 7;
         lightAttacking = false;
@@ -61,7 +61,6 @@ public class GenericPlayer extends Player {
 
     @Override
     public void draw(Graphics g) {
-        //Graphics gg = get
         xPos = (int)(((double)this.xPosPlayer/100) * this.getScreenWidth);
         yPos = (int)(((double)this.yPosPlayer/100) * this.getScreenHeight);
         w = (int)(((double) playerWidth /100) * this.getScreenWidth);
@@ -69,13 +68,18 @@ public class GenericPlayer extends Player {
 
         g.setColor(color);
         g.drawRect(xPos,yPos,w,h);
-
-        //g.drawImage(MapFrame.player, xPos, yPos, w, h, (img, infoflags, x, y, width, height) -> false);
     }
 
-    public void updateWidth(int w){this.getScreenWidth = w;}
+    @Override
+    public void updateWidth(int w) {
+        this.getScreenWidth = w;
+    }
 
-    public void updateHeight(int h){this.getScreenHeight = h;}
+    @Override
+    public void updateHeight(int h) {
+        this.getScreenHeight = h;
+    }
+
 
     //Movement
 
@@ -103,7 +107,7 @@ public class GenericPlayer extends Player {
     }
 
     public void up(){
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,1,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(2,1,32,32);
         if(jumpCounter < 2){
             ySpeed = 6;
             jumpCounter++;
@@ -111,12 +115,12 @@ public class GenericPlayer extends Player {
     }
 
     public void left(){
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(2,2,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(2,2,32,32);
         xSpeed = -1;
     }
 
     public void right(){
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,2,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(1,2,32,32);
         xSpeed = 1;
     }
 
@@ -125,26 +129,19 @@ public class GenericPlayer extends Player {
     }
 
     public void stopMoving(){
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(1,1,32,32);
         canMove = false;
     }
 
-    public void initiateGravity(){
-        ySpeed -= 1;
-        if (ySpeed < -4){
-            ySpeed = -4;
-        }
-    }
-
-    public void onlineMovement(int x, int y){
-        xPosPlayer = x;
-        yPosPlayer = y;
+    private void initiateGravity(){
+        ySpeed -=1;
     }
 
 
     //Collision Detection
 
-    public void collisionDetection(){
+    @Override
+    public void collisionDetection() {
         if (mapSelection.equals("TestingMap")){
             testingMapCollisions();
         } else if (mapSelection.equals("Blockage")){
@@ -332,33 +329,33 @@ public class GenericPlayer extends Player {
         }
 
 //        if (Pillars.rightPillar.MapCollisionDetection(getLeftX(), getRightX(),getTopY(),getBottomY())) {
-            //System.out.println("collision");
-
-//            System.out.println("x: "+ overlap(getRightX(), Pillars.rightPillar.xPosMapComp));
-//            System.out.println("y: "+ overlap(getBottomY(), Pillars.rightPillar.yPosMapComp));
-            overlap(getRightX(),Pillars.rightPillar.xPosMapComp);
-
-
-//            if (getTopY() > (Pillars.rightPillar.yPosMapComp + (playerHeight / 2)) || getLeftX() > (Pillars.rightPillar.xPosMapComp + (playerWidth / 2)) && getRightX() > (Pillars.rightPillar.xPosMapComp + (playerWidth / 2))) {
-//                //System.out.println("not on corner");
-//                if (Math.abs(getRightX() - Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY() - Pillars.rightPillar.yPosMapComp)) {
-//                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
-//                    ySpeed = 0;
-//                    jumpCounter = 0;
-//                } else {
-//                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
-//                }
-//            } else {
-//                //System.out.println("corner");
-//                if (Math.abs(getRightX() - Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY() - Pillars.rightPillar.yPosMapComp)) {
-//                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
-//                } else {
-//                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
-//                    jumpCounter = 0;
-//                }
-//            }
+//            //System.out.println("collision");
 //
 //
+//            //System.out.println("x: "+ overlap(getRightX(), Pillars.rightPillar.xPosMapComp));
+//            //System.out.println("y: "+ overlap(getBottomY(), Pillars.rightPillar.yPosMapComp));
+        overlap(getRightX(), Pillars.rightPillar.xPosMapComp);
+//
+////            if (getTopY() > (Pillars.rightPillar.yPosMapComp + (playerHeight / 2)) || getLeftX() > (Pillars.rightPillar.xPosMapComp + (playerWidth / 2)) && getRightX() > (Pillars.rightPillar.xPosMapComp + (playerWidth / 2))) {
+////                //System.out.println("not on corner");
+////                if (Math.abs(getRightX() - Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY() - Pillars.rightPillar.yPosMapComp)) {
+////                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+////                    ySpeed = 0;
+////                    jumpCounter = 0;
+////                } else {
+////                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+////                }
+////            } else {
+////                //System.out.println("corner");
+////                if (Math.abs(getRightX() - Pillars.rightPillar.xPosMapComp) > Math.abs(getBottomY() - Pillars.rightPillar.yPosMapComp)) {
+////                    xPosPlayer = (Pillars.rightPillar.xPosMapComp - playerWidth);
+////                } else {
+////                    yPosPlayer = (Pillars.rightPillar.yPosMapComp - playerHeight);
+////                    jumpCounter = 0;
+////                }
+////            }
+////
+////
 //      }
         //if you're on the right side of the platform then compare the left side of the player, otherwise compare the right side of the player
     }
@@ -498,8 +495,7 @@ public class GenericPlayer extends Player {
     //Fighting System
 
     @Override
-    public boolean playerColliding(int xPlayer, int yPlayer){
-        //check the bound of the direction the player is looking in
+    public boolean playerColliding(int xPlayer, int yPlayer) {
         if (xPlayer >= this.xPosPlayer && xPlayer <= (this.xPosPlayer + this.playerWidth)){
             return true;
         }
@@ -507,13 +503,13 @@ public class GenericPlayer extends Player {
     }
 
     public void lightAttack(){
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,3,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(1,3,32,32);
         lightAttacking = true;
     }
 
     public void stopLightAttack(){
         //where you implement the hit delay
-        mapFrame.genPlayer = mapFrame.genericPlayerSS.getImage(1,1,32,32);
+        mapFrame.greenBlocBoy = mapFrame.greenBlocBoySS.getImage(1,1,32,32);
         lightAttacking = false;
     }
 
@@ -537,7 +533,7 @@ public class GenericPlayer extends Player {
     }
 
 
-    //Capture Point
+    //CapturePoint
 
     public static int points;
     public void capturePoints(int points){

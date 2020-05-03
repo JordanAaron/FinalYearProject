@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class MapSelectionMenu extends JPanel {
     //JFrame frame;
+    JLabel title;
     JButton backBtn, mapBtn1, mapBtn2, mapBtn3, mapBtn4, mapBtn5, mapBtn6;
 
     public MapSelectionMenu(/*JFrame frame*/){
@@ -25,6 +26,9 @@ public class MapSelectionMenu extends JPanel {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         add(topPanel,BorderLayout.NORTH);
+
+        title = new JLabel("Choose a Map");
+        topPanel.add(title,BorderLayout.CENTER);
 
         backBtn = new JButton("Go Back");
         topPanel.add(backBtn, BorderLayout.LINE_END);
@@ -105,7 +109,7 @@ public class MapSelectionMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 MultiPlayerInputHandling.getMap("Pillars");
                 MapFrame frame = new MapFrame();
-                Pillars pillars = new Pillars(frame,"");
+                Pillars pillars = new Pillars(frame, "");
                 frame.add(pillars);
                 frame.pack();
 

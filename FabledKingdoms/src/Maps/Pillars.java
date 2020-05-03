@@ -2,11 +2,10 @@ package Maps;
 
 import GameModes.Hardpoint.CapturePoint;
 import GameModes.Hardpoint.HardPointMode;
+import InputHandling.MultiPlayerInputHandling;
 import MapComponents.*;
 import MapComponents.Component;
-import PlayerCharacters.GenericPlayer;
-import PlayerCharacters.Player;
-import PlayerCharacters.TrainingPlayer;
+import PlayerCharacters.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,21 +50,25 @@ public class Pillars extends JPanel {
     public static Platform middleRightPillarRight = new Platform(middleRightPillar.getRightX(),middleRightPillar.getTopY(),1,middleRightPillar.h,Color.blue);
 
     //Players
-    public static GenericPlayer p1;
-    //public static GenericPlayer p2;
-    public static TrainingPlayer p2;
+    public static GenericPlayer gen;
+    public static TrainingPlayer purp;
+    public static Orange orange;
+    public static GreenBlocBoy gbb;
 
     public ArrayList<Component> components = new ArrayList<>();
     public static ArrayList<CapturePoint> capturePoints = new ArrayList<>();
     private ArrayList<PlayerCharacters.Player> players = new ArrayList<>();
 
+
+    public static String gamemode;
+
     public Pillars(MapFrame frame, String gameMode){
         this.frame = frame;
+        this.gamemode = gameMode;
         setBackground(Color.BLACK);
 
-        p1 = new GenericPlayer(85, 60-7, Color.pink, "Pillars",frame);
-        //p2 = new GenericPlayer(15, 60-7, Color.cyan, "Pillars",frame);
-        p2 = new TrainingPlayer(15,60-7,Color.cyan, frame);
+//        gen = new GenericPlayer(85, 60-7, Color.pink, "Pillars",frame);
+//        purp = new TrainingPlayer(15,60-7,Color.cyan,"Pillars", frame);
 
         this.components.add(floor);
         this.components.add(leftPillar);
@@ -73,12 +76,15 @@ public class Pillars extends JPanel {
         this.components.add(middleLeftPillar);
         this.components.add(middleRightPillar);
 
-        this.players.add(p1);
-        this.players.add(p2);
-
+//        this.players.add(gen);
+//        this.players.add(purp);
 
 
         if (gameMode.equals("HardPoint")){
+            capturePoints.add(centerCP);
+            capturePoints.add(leftPillarCP);
+            capturePoints.add(rightPillarCP);
+
             points = new Thread(new addPoint());
             HardPointMode hardPointMode = new HardPointMode("Pillars");
             hardPointMode.getMapFrame(frame);
@@ -88,11 +94,42 @@ public class Pillars extends JPanel {
             frame.getHardPointMode(hardPointMode);
 
 
-
-            capturePoints.add(centerCP);
-            capturePoints.add(leftPillarCP);
-            capturePoints.add(rightPillarCP);
         }
+        if (MultiPlayerInputHandling.characters.get(0).equals("Gen")){
+            gen = new GenericPlayer(85, 60-7, Color.pink, "Pillars", frame);
+            this.players.add(gen);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Gen")){
+            gen = new GenericPlayer(15, 60-7, Color.pink, "Pillars", frame);
+            this.players.add(gen);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Purp")){
+            purp = new TrainingPlayer(85, 60-7, Color.cyan, "Pillars", frame);
+            this.players.add(purp);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Purp")){
+            purp = new TrainingPlayer(15, 60-7, Color.cyan, "Pillars", frame);
+            this.players.add(purp);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("Orange")){
+            orange = new Orange(85,60-7,Color.orange,"Pillars", frame);
+            this.players.add(orange);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("Orange")){
+            orange = new Orange(15,60-7,Color.orange,"Pillars", frame);
+            this.players.add(orange);
+        }
+
+        if (MultiPlayerInputHandling.characters.get(0).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(85, 60-7, Color.green, "Pillars", frame);
+            this.players.add(gbb);
+        } else if (MultiPlayerInputHandling.characters.get(1).equals("GreenBlocBoy")){
+            gbb = new GreenBlocBoy(15, 60-7, Color.green, "Pillars", frame);
+            this.players.add(gbb);
+        }
+
+
+
+
 
     }
 
@@ -125,31 +162,66 @@ public class Pillars extends JPanel {
             menu.draw(g, Color.pink);
         }
 
+
+
+        //System.out.println(addPoint.getCount());
+
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            g.drawImage(frame.genPlayer, gen.xPos,gen.yPos,gen.w,gen.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            g.drawImage(frame.purp, purp.xPos,purp.yPos,purp.w,purp.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            g.drawImage(frame.orange, orange.xPos,orange.yPos,orange.w,orange.h,this);
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            g.drawImage(frame.greenBlocBoy, gbb.xPos,gbb.yPos,gbb.w,gbb.h,this);
+        }
+
+
         for (CapturePoint cp : capturePoints){
             if (cp.active){
                 cp.updateWidth(this.getWindowWidth());
                 cp.updateHeight(this.getWindowHeight());
                 cp.draw(g,Color.yellow);
-                //int count = 0;
-                //Timer timer = new Timer();
-                if (cp.playerOnPoint(p1.getLeftX(),p1.getRightX(),p1.getBottomY())){
-                    addPoint.onPoint = true;
-                    p1.capturePoints(addPoint.getCount());
+                if (cp.playerOnPoint(gen.getLeftX(), gen.getRightX(), gen.getBottomY())){
+                    addPoint.onPointP1 = true;
+                    gen.capturePoints(addPoint.getCountP1());
+                    //addPoint.setOnPointP1(true);
                 } else {
-                    addPoint.onPoint = false;
+                    addPoint.onPointP1 = false;
+                }
+                //System.out.println(gen.points);
+
+                if (cp.playerOnPoint(purp.getLeftX(), purp.getRightX(), purp.getBottomY())){
+                    addPoint.onPointP2 = true;
+                    purp.capturePoints(addPoint.getCountP2());
+                    //addPoint.setOnPointP1(true);
+                } else {
+                    addPoint.onPointP2 = false;
+                    //addPoint.setOnPointP1(false);
                 }
             }
         }
+
+
         //System.out.println(addPoint.getCount());
 
-        g.drawImage(frame.genPlayer, p1.xPos, p1.yPos, p1.w, p1.h,this);
-        g.drawImage(frame.trainingPlayer,p2.xPos,p2.yPos,p2.w,p2.h,this);
+//        g.drawImage(frame.genPlayer, gen.xPos, gen.yPos, gen.w, gen.h,this);
+//        g.drawImage(frame.purp, purp.xPos, purp.yPos, purp.w, purp.h,this);
 
         g.setColor(Color.green);
         g.drawString(MapFrame.getFPS() + "fps", 0, 10);
 
         g.setColor(Color.pink);
-        g.drawString("Player 1 points: " + p1.points,updateX(80),updateY(10));
+        g.drawString("Gen points: " + gen.points,updateX(80),updateY(10));
+
+        g.setColor(Color.magenta);
+        g.drawString("Purp points: " + purp.points,updateX(20),updateY(10));
 
     }
 
@@ -171,18 +243,26 @@ public class Pillars extends JPanel {
     }
 
     public static class addPoint implements Runnable {
-        static int count = 0;
-        static boolean onPoint;
+        static int countP1 = 0, countP2 = 0;
+        public static boolean onPointP1, onPointP2;
 
         static boolean running = true;
+
+
 
         @Override
         public void run() {
             while (running){
+//                System.out.println("points.........");
 
-                if (onPoint){
-                    count = count + 1;
+                if (onPointP1){
+                    countP1 = countP1 + 1;
                 }
+
+                if (onPointP2){
+                    countP2 = countP2 + 1;
+                }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -221,8 +301,12 @@ public class Pillars extends JPanel {
             }
         }
 
-        public static int getCount(){
-            return count;
+        public static int getCountP1(){
+            return countP1;
+        }
+
+        public static int getCountP2(){
+            return countP2;
         }
     }
 }

@@ -30,7 +30,7 @@ public class MapFrame extends JFrame implements Runnable {
     private BufferedImage spriteSheet_GreenBlocBoy = null;
 
 
-    public static BufferedImage genPlayer, trainingPlayer,orange,greenBlocBoy;
+    public static BufferedImage genPlayer, purp,orange,greenBlocBoy;
     public SpriteSheet genericPlayerSS, trainingPlayerSS,orangeSS,greenBlocBoySS;
 
     private HardPointMode hardPointMode;
@@ -38,6 +38,8 @@ public class MapFrame extends JFrame implements Runnable {
 
 
     public boolean upArrow, rightArrow = false, leftArrow = false;
+
+    public static boolean localGame;
 
     public MapFrame(Client client) throws IOException {
         this.client = client;
@@ -144,7 +146,7 @@ public class MapFrame extends JFrame implements Runnable {
     public void run() {
         init();
         genPlayer = genericPlayerSS.getImage(1,1,32,32);
-        trainingPlayer = trainingPlayerSS.getImage(5,1,32,32);
+        purp = trainingPlayerSS.getImage(5,1,32,32);
         orange = orangeSS.getImage(1,1,32,32);
         greenBlocBoy = greenBlocBoySS.getImage(1,1,32,32);
 
@@ -182,20 +184,25 @@ public class MapFrame extends JFrame implements Runnable {
                 System.out.println("up arrow pressed");
             }
 
-            if (multiInput.mapSelection.equals("TestingMap")){
-                runTestingMap();
-            } else if (multiInput.mapSelection.equals("Blockage")){
-                runBlockage();
-            } else if (multiInput.mapSelection.equals("Pillars")){
-                runPillars();
-            } else if (multiInput.mapSelection.equals("CenterCore")){
-                runCenterCore();
+            if (localGame){
+                if (multiInput.mapSelection.equals("TestingMap")){
+                    runTestingMap();
+                } else if (multiInput.mapSelection.equals("Blockage")){
+                    runBlockage();
+                } else if (multiInput.mapSelection.equals("Pillars")){
+                    runPillars();
+                } else if (multiInput.mapSelection.equals("CenterCore")){
+                    runCenterCore();
+                }
             }
+
+
+            runTestingMap();
 
             repaint();
 
             try {
-                thread.sleep(30);
+                thread.sleep(28);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -207,6 +214,7 @@ public class MapFrame extends JFrame implements Runnable {
         TestingMap.p2.movement();
         TestingMap.checkPause(paused);
         multiInput.getInGameMenu(TestingMap.menu);
+
         if (input.playerID == 1){
             client.playerMovement(TestingMap.p1.xPosPlayer, TestingMap.p1.yPosPlayer);
         } else if (input.playerID == 2){
@@ -215,22 +223,67 @@ public class MapFrame extends JFrame implements Runnable {
     }
 
     private void runBlockage(){
-        Blockage.p1.movement();
-        Blockage.p2.movement();
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            Blockage.gen.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            Blockage.purp.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            Blockage.orange.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            Blockage.gbb.movement();
+        }
+
+
+
         Blockage.checkPause(paused);
         multiInput.getInGameMenu(Blockage.menu);
     }
 
     private void runPillars(){
-        Pillars.p1.movement();
-        Pillars.p2.movement();
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            Pillars.gen.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            Pillars.purp.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            Pillars.orange.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            Pillars.gbb.movement();
+        }
+
+
         Pillars.checkPause(paused);
         multiInput.getInGameMenu(Pillars.menu);
     }
 
     private void runCenterCore(){
-        CenterCore.p1.movement();
-        CenterCore.p2.movement();
+        if (MultiPlayerInputHandling.characters.contains("Gen")){
+            CenterCore.gen.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Purp")){
+            CenterCore.purp.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("Orange")){
+            CenterCore.orange.movement();
+        }
+
+        if (MultiPlayerInputHandling.characters.contains("GreenBlocBoy")){
+            CenterCore.gbb.movement();
+        }
+
         CenterCore.checkPause(paused);
         multiInput.getInGameMenu(CenterCore.menu);
     }

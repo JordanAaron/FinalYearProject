@@ -64,7 +64,8 @@ public class LocalPlayMenu extends JPanel {
         trainingBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainMenu.frame.setContentPane(new MapSelectionMenu());
+                //MainMenu.frame.setContentPane(new MapSelectionMenu());
+                MainMenu.frame.setContentPane(new PlayerSelectionMenu());
                 MainMenu.frame.invalidate();
                 MainMenu.frame.validate();
             }
@@ -73,7 +74,8 @@ public class LocalPlayMenu extends JPanel {
         multiBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainMenu.frame.setContentPane(new MapSelectionMenu());
+                //MainMenu.frame.setContentPane(new MapSelectionMenu());
+                MainMenu.frame.setContentPane(new PlayerSelectionMenu());
                 MainMenu.frame.invalidate();
                 MainMenu.frame.validate();
             }

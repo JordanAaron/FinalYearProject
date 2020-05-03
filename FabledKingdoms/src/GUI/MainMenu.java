@@ -118,6 +118,7 @@ class PlayTab extends JPanel{
                 try {
                     Client client = new Client();
                     MapFrame frame = new MapFrame(client);
+                    frame.localGame = false;
                     TestingMap testingMap = new TestingMap(frame);
                     client.giveMeMapReference(testingMap);
 
@@ -143,6 +144,7 @@ class PlayTab extends JPanel{
                 frame.setContentPane(new LocalPlayMenu());
                 frame.invalidate();
                 frame.validate();
+                MapFrame.localGame = true;
             }
         });
     }
