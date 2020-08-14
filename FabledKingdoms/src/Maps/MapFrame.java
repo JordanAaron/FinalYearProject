@@ -180,9 +180,9 @@ public class MapFrame extends JFrame implements Runnable {
             }
 
 
-            if (upArrow){
-                System.out.println("up arrow pressed");
-            }
+//            if (upArrow){
+//                System.out.println("up arrow pressed");
+//            }
 
             if (localGame){
                 if (multiInput.mapSelection.equals("TestingMap")){
@@ -197,7 +197,7 @@ public class MapFrame extends JFrame implements Runnable {
             }
 
 
-            runTestingMap();
+            //runTestingMap();
 
             repaint();
 

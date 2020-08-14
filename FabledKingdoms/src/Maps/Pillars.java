@@ -205,6 +205,14 @@ public class Pillars extends JPanel {
                     addPoint.onPointP2 = false;
                     //addPoint.setOnPointP1(false);
                 }
+//                if (cp.playerOnPoint(orange.getLeftX(), orange.getRightX(), orange.getBottomY())){
+//                    addPoint.onPointP2 = true;
+//                    orange.capturePoints(addPoint.getCountP2());
+//                    //addPoint.setOnPointP1(true);
+//                } else {
+//                    addPoint.onPointP2 = false;
+//                    //addPoint.setOnPointP1(false);
+//                }
             }
         }
 
